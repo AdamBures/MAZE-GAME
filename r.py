@@ -12,3 +12,6 @@ print(random.randint(1, 10))
 print()
 
 print('hey')
+
+def fun():
+    return 0
