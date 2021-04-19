@@ -9,5 +9,3 @@ Date: 19/04/2021
 import random
 
 print(random.randint(1, 10))
-
-print("ooooooooooooooooooola hola")
