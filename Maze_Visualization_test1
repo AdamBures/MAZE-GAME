@@ -1,6 +1,6 @@
 import pygame
-
-
+from pygame.locals import *
+import sys
 # blk znamená blok
 # vykreslenie blokov som nastavil zatiaľ tak aby mali rovnakú veľkosť a šírku
 # v ľavej časti obrazovky nechávam miesto na vykreslovanie skóre, tlačítok ako hint, end, menu,...
@@ -29,7 +29,7 @@ MAP1 = [['#', '#', '#', '#', '#', '#', '#', '#', '#', '#'],
         ['#', '#', '#', '#', '#', '#', '#', '#', '#', '#']]
 
 #začiatočné súradnice ku ktorým sa ešte bude pridávať hodnota podľa toho v ktorom stĺpci a riadku sú
-X_BLK_START = 160
+X_BLK_START = 80
 Y_BLK_START = 0
 
 #počet blokov
@@ -45,7 +45,7 @@ Y_BLK_END = Y_BLK_START + BLK_SIZE
 
 pygame.init()
 
-def test_main():
+def draw_labyrinth():
     global FPSCLOCK, DISPLAY_SURFACE
     FPSCLOCK = pygame.time.Clock()
     # bloky sa vykreslujú po riadkoch, nie po stĺpcoch
@@ -74,4 +74,15 @@ def test_main():
                     pygame.draw.circle(DISPLAY_SURFACE, WHITE, ((X_BLK_START + (BLK_SIZE * j) + (BLK_SIZE - 2) // 2), Y_BLK_START + (BLK_SIZE * i) + (( BLK_SIZE - 2 ) // 2)), (BLK_SIZE - 2) // 2)
             pygame.display.update()
 
-test_main()
+#Game loop
+def main():
+    while True:
+        draw_labyrinth()
+        for event in pygame.event.get():
+            if event.type == QUIT:
+                pygame.quit()
+                sys.exit()
+            pygame.display.update()
+
+if __name__ == '__main__':
+    main()
