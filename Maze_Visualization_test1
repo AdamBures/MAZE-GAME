@@ -55,15 +55,20 @@ def draw_labyrinth():
             #stena
             if MAP1[i][j] == '#':
                 pygame.draw.rect(DISPLAY_SURFACE, BROWN, rect)
-                # - 2 vo výpočte zabezpečuje medzery medzi blokmi, aby boli ľahšie rozoznateľné 
+                # - 2 vo výpočte zabezpečuje medzery medzi blokmi, aby boli ľahšie rozoznateľné
                 #prvá čiara je z horného ľavého rohu do stredu pravej strany
                 #druhá je zo stredu pravej strany do ľavého doľného rohu
                 #tretia z horného pravého rohu do stredu ľavej strany
                 #štvrtá zo stredu ľavej strany do pravého doľného rohu
-                pygame.draw.line(DISPLAY_SURFACE, BLACK, (X_BLK_START + (BLK_SIZE * j), Y_BLK_START + (BLK_SIZE * i)), (X_BLK_START + ((BLK_SIZE ) * j + (BLK_SIZE )-2), Y_BLK_START + (BLK_SIZE * i) + (BLK_SIZE // 2)-2), 1) 
-                pygame.draw.line(DISPLAY_SURFACE, BLACK, (X_BLK_START + (BLK_SIZE * j) + BLK_SIZE - 2, Y_BLK_START + (BLK_SIZE * i) + (BLK_SIZE // 2) - 2), ( X_BLK_START + (BLK_SIZE * j), Y_BLK_START + (BLK_SIZE * i) + BLK_SIZE - 2), 1) 
-                pygame.draw.line(DISPLAY_SURFACE, BLACK, (X_BLK_START + (BLK_SIZE * j) + BLK_SIZE-2, Y_BLK_START + (BLK_SIZE * i)), (X_BLK_START + (BLK_SIZE * j), Y_BLK_START + (BLK_SIZE * i) + (BLK_SIZE // 2) - 2), 1)
-                pygame.draw.line(DISPLAY_SURFACE, BLACK, (X_BLK_START + (BLK_SIZE * j), Y_BLK_START + (BLK_SIZE * i) + (BLK_SIZE // 2)), ( X_BLK_START + (BLK_SIZE * j) + BLK_SIZE - 2, Y_BLK_START + (BLK_SIZE * i) + BLK_SIZE - 2), 1)
+                # X_COORDS je X-ová súradnica lavej steny daného bloku
+                # Y_coords je Y-ová súradnica hornej steny daného bloku
+                X_COORDS = X_BLK_START + (BLK_SIZE * j)
+                Y_COORDS = Y_BLK_START + (BLK_SIZE * i)
+
+                pygame.draw.line(DISPLAY_SURFACE, BLACK, (X_COORDS, Y_COORDS), (X_COORDS + BLK_SIZE - 2, Y_COORDS + (BLK_SIZE // 2) - 2), 1)
+                pygame.draw.line(DISPLAY_SURFACE, BLACK, (X_COORDS + BLK_SIZE - 2, Y_COORDS + (BLK_SIZE // 2) - 2), (X_COORDS, Y_COORDS + BLK_SIZE - 2), 1)
+                pygame.draw.line(DISPLAY_SURFACE, BLACK, (X_COORDS + BLK_SIZE - 2, Y_COORDS), (X_COORDS, Y_COORDS + (BLK_SIZE // 2) - 2), 1)
+                pygame.draw.line(DISPLAY_SURFACE, BLACK, (X_COORDS, Y_COORDS + (BLK_SIZE // 2)), (X_COORDS + BLK_SIZE - 2, Y_COORDS + BLK_SIZE - 2), 1)
             # priechod
             if MAP1[i][j] == '_':
                 pygame.draw.rect(DISPLAY_SURFACE, GREEN, rect)
@@ -85,4 +90,3 @@ def main():
             pygame.display.update()
 
 if __name__ == '__main__':
-    main()
