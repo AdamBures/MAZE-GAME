@@ -1,4 +1,4 @@
-from Consty import *
+from Const import *
 from Visualization import *
 
 import pygame
