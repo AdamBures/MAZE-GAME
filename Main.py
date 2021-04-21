@@ -1,4 +1,5 @@
-from Const import *
+from Consty import *
+from Visualization import *
 
 import pygame
 from pygame.locals import *
@@ -11,10 +12,11 @@ def terminate_window():
 
 
 def show_menu():
-
+    global FPSCLOCK
     # Title
     title_font = pygame.font.Font('freesansbold.ttf', 80)
     btn_font = pygame.font.Font('freesansbold.ttf', 40)
+    btn_font2 = pygame.font.Font('freesansbold.ttf', 30)
     title_surface = title_font.render('Maze Game!', True, WHITE)
     title_rect = title_surface.get_rect()
     title_rect.center = (WINDOW_WIDTH / 2, WINDOW_HEIGHT / 3)
@@ -22,12 +24,15 @@ def show_menu():
     # Button
     btn_start = btn_font.render("Start!", True, WHITE)
     btn_exit = btn_font.render("Exit!", True, WHITE)
+    btn_menu = btn_font2.render("Menu", True, WHITE)
 
     btn_start_rect = btn_start.get_rect()
     btn_exit_rect = btn_exit.get_rect()
+    btn_menu_rect = btn_menu.get_rect()
 
     btn_start_rect.center = (WINDOW_WIDTH / 2, WINDOW_HEIGHT / 2)
     btn_exit_rect.center = (WINDOW_WIDTH / 2, 2 * WINDOW_HEIGHT / 3)
+    btn_menu_rect.center = (40, WINDOW_HEIGHT / 2)
 
     # draw window
     DISPLAY_SURFACE.fill(BG_COLOR)
@@ -52,14 +57,17 @@ def show_menu():
 
         if mouse_clicked:
             if btn_start_rect.collidepoint(mouse_coordinates[0], mouse_coordinates[1]):
-                break
+                DISPLAY_SURFACE.fill(BG_COLOR)
+                draw_labyrinth()
+                DISPLAY_SURFACE.blit(btn_menu, btn_menu_rect)
+            if btn_menu_rect.collidepoint(mouse_coordinates[0], mouse_coordinates[1]):
+                main()
             elif btn_exit_rect.collidepoint(mouse_coordinates[0], mouse_coordinates[1]):
                 terminate_window()
 
-
         # redraw game state
         pygame.display.update()
-
+        FPSCLOCK.tick(FPS)
 
 
 def run_game():
@@ -72,7 +80,6 @@ def main():
     while True:
 
         run_game()
-
 
 
 if __name__ == '__main__':
