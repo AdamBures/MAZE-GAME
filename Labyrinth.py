@@ -1,6 +1,13 @@
-class Labyrinth:
+from typing import List
 
-    def __init__(self, labyrinth: list[list[str]]):
+class Labyrinth:
+    """
+    :param labyrinth: list of chars
+    :type labyrinth: list
+    :param index: index at which to pick a list and then pick char from *labyrinth*
+    :type index: string
+    """
+    def __init__(self, labyrinth: List[List[str]]):
         self.labyrinth = labyrinth
 
 
