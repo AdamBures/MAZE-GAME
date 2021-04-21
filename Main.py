@@ -1,8 +1,5 @@
-from Const import *
-from Visualization import *
+from Visualisation import *
 
-import pygame
-from pygame.locals import *
 pygame.init()
 
 
@@ -12,7 +9,6 @@ def terminate_window():
 
 
 def show_menu():
-    global FPSCLOCK
     # Title
     title_font = pygame.font.Font('freesansbold.ttf', 80)
     btn_font = pygame.font.Font('freesansbold.ttf', 40)
@@ -67,7 +63,7 @@ def show_menu():
 
         # redraw game state
         pygame.display.update()
-        FPSCLOCK.tick(FPS)
+        FPS_CLOCK.tick(FPS)
 
 
 def run_game():
@@ -78,7 +74,6 @@ def run_game():
 def main():
     show_menu()
     while True:
-
         run_game()
 
 
