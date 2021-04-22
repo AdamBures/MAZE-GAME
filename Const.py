@@ -3,6 +3,8 @@ import pygame
 from Labyrinth import Labyrinth
 from Player import Player
 
+pygame.init()
+
 # [1, 2] and [1, 6] wall
 MAP1 = [['#', '#', '#', '#', '#', '#', '#', '#', '#', '#'],
         ['#', 'S', '_', '_', '_', '_', '_', '_', '_', 'X'],
@@ -30,6 +32,10 @@ GREEN = (0, 255, 0)
 BROWN = (255, 97, 3)
 BLUE = (0, 0, 255)
 BLACK = (0, 0, 0)
+
+TITLE_FONT = pygame.font.Font('freesansbold.ttf', 80)
+BTN_FONT = pygame.font.Font('freesansbold.ttf', 40)
+BTN_FONT2 = pygame.font.Font('freesansbold.ttf', 30)
 
 FPS = 30
 FPS_CLOCK = pygame.time.Clock()
