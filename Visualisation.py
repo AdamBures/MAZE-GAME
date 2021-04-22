@@ -1,5 +1,5 @@
 from pygame.locals import *
-
+import time
 from Const import *
 
 # blk stands for block
