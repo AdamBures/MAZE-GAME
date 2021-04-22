@@ -1,4 +1,4 @@
-from typing import Union, List, Dict
+from typing import Union, List, Dict, Tuple
 
 import Labyrinth
 
@@ -10,12 +10,27 @@ class Player:
         self.col_position = col_position
         self.labyrinth = labyrinth
 
+    @staticmethod
+    def find_player_position(labyrinth: Labyrinth) -> Tuple[int, int]:
+        """
+        Find player position in labyrinth
+        :param labyrinth: 2d string list
+        :return: Tuple containing row and col position
+        """
+        for row in range(0, len(labyrinth)):
+            for col in range(0, len(labyrinth[0])):
+                if labyrinth[row][col] == 'S':
+                    return row, col
+        
+        # todo: handle exception, if there is no field holding 'S' then something is wrong
+        return -1, -1
+
     def __convert_position(self, row_position: int = None, col_position: int = None) -> int:
         """
         Convert 2d position to 1d position
-        :param row_position:
-        :param col_position:
-        :return:
+        :param row_position: Row position in 2d list
+        :param col_position: Col position in 2d list
+        :return: Converted position
         """
         if row_position is None or col_position is None:
             return self.row_position * len(self.labyrinth[0]) + self.col_position

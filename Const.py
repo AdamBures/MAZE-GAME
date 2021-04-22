@@ -1,6 +1,7 @@
 import pygame
 
-from Labyrinth import *
+from Labyrinth import Labyrinth
+from Player import Player
 
 # [1, 2] and [1, 6] wall
 MAP1 = [['#', '#', '#', '#', '#', '#', '#', '#', '#', '#'],
@@ -17,7 +18,10 @@ MAP1 = [['#', '#', '#', '#', '#', '#', '#', '#', '#', '#'],
 WINDOW_WIDTH = 640
 WINDOW_HEIGHT = 480
 DISPLAY_SURFACE = pygame.display.set_mode((WINDOW_WIDTH, WINDOW_HEIGHT))
+
 LABYRINTH = Labyrinth(MAP1)
+START_ROW, START_COL = Player.find_player_position(LABYRINTH)
+PLAYER = Player(LABYRINTH, START_ROW, START_COL)
 
 WHITE = (255, 255, 255)
 BG_COLOR = (0, 0, 0)
@@ -26,7 +30,6 @@ GREEN = (0, 255, 0)
 BROWN = (255, 97, 3)
 BLUE = (0, 0, 255)
 BLACK = (0, 0, 0)
-
 
 FPS = 30
 FPS_CLOCK = pygame.time.Clock()
