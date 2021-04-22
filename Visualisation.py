@@ -73,6 +73,19 @@ def draw_menu_btn() -> pygame.Rect:
 
     return btn_menu_rect
 
+def draw_score() -> pygame.Rect:
+    """
+    Draw score and number.
+    """
+    score_menu = SCORE_FONT.render("Score", True, WHITE)
+    score_rect = score_menu.get_rect()
+    score_rect.center = (40, (WINDOW_HEIGHT / 2) + 50)
+    DISPLAY_SURFACE.blit(score_menu, score_rect)
+    number_menu = SCORE_FONT.render(f"{NUMBER}", True, WHITE)
+    number_rect = number_menu.get_rect()
+    number_rect.center = (40, (WINDOW_HEIGHT / 2) + 80)
+    DISPLAY_SURFACE.blit(number_menu, number_rect)
+
 def current_position_vis():
     '''
     Show current player position while in game
