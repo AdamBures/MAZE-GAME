@@ -90,15 +90,18 @@ def run_game():
 
             # movement
             elif event.type == KEYUP:
-                current_position_vis()
                 if event.key == K_UP or event.key == K_w:
                     PLAYER.change_position(-1, 0)
+                    current_position_vis()
                 elif event.key == K_DOWN or event.key == K_s:
                     PLAYER.change_position(1, 0)
+                    current_position_vis()
                 elif event.key == K_LEFT or event.key == K_a:
                     PLAYER.change_position(0, -1)
+                    current_position_vis()
                 elif event.key == K_RIGHT or event.key == K_d:
                     PLAYER.change_position(0, 1)
+                    current_position_vis()
 
         # todo: if position of player has changed, redraw his origin and forward position
         pygame.display.update()
