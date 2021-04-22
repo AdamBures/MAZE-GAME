@@ -1,12 +1,14 @@
 # MAZE-GAME
 
 ### `Const`:
-Includes several constant that are used in other files.
+Includes several constants that are used in other files.
 
 ### `Labyrinth`:
 There is defined `class Labyrinth`
 ```python
-def __init__(self, labyrinth: list[list[str]]):
+from typing import List
+
+def __init__(self, labyrinth: List[List[str]]):
     # Declares and initializes attr `labyrinth` to the value of the same 
     # name parameter `labyrinth`
     ...
@@ -42,29 +44,38 @@ def main():
 ### `Player`:
 There is defined `class Player`
 ```python
-from typing import Union
+from typing import Union, Tuple, Dict, List
 import Labyrinth
 
 def __init__(self, labyrinth: Labyrinth, row_position: int, col_position: int):
     # Initializes player position in the labyrinth
     ...
 
+@staticmethod
+def find_player_position(labyrinth: Labyrinth) -> Tuple[int, int]:
+    # Finds player's current position
+    ...
+
+def get_position(self):
+    # Returns position of a player
+    ...
+
 def __convert_position(self, row_position: int = None, col_position: int = None) -> int:
     # Converts 2d position to 1d position
     ...
 
-def __predecessors_list(self, labyrinth: list[list[str]]) -> dict[int, Union[int, list[int]]]:
+def __predecessors_list(self, labyrinth: List[List[str]]) -> Dict[int, Union[int, List[int]]]:
     # BSF algorithm that search for the shortest path to end
-    # I tried to reduce time complexity by changing 2d position in list to 1d position 
+    # I tried to reduce time complexity by changing 2d position in List to 1d position 
     # represented by one number
     # Returns dictionary containing it
     ...
 
-def __path_to_end(self, labyrinth: list[list[str]], dest: int) -> list[list[int]]:
+def __path_to_end(self, labyrinth: List[List[str]], dest: int) -> List[List[int]]:
     # Finds all 2d positions player must visit in order to exit the maze
     ...
 
-def next_position(self, labyrinth: list[list[str]], dest: int) -> list[int]:
+def next_position(self, labyrinth: List[List[str]], dest: int) -> List[int]:
     # Returns next position player must visit in order to exit the maze
     ...
 ```
@@ -73,5 +84,10 @@ Displays the labyrinth to user
 ```python
 def draw_labyrinth():
     # Draw background (labyrinth) to window surface
+    ...
+
+def draw_menu_btn():
+    # Draw menu btn to surface
+    # Returns btn rectangle
     ...
 ```
