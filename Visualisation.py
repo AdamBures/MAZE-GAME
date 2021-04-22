@@ -73,6 +73,22 @@ def draw_menu_btn() -> pygame.Rect:
 
     return btn_menu_rect
 
+def current_position_vis():
+    '''
+    Show current player position while in game
+    the first rect creation is to overwrite the previous c_position_rect
+    :return:
+    '''
+    pygame.draw.rect(DISPLAY_SURFACE, BLACK, (0, 0, 80, 80))
+    position = PLAYER.get_position()
+    player_position_icon(position)
+    position = str(position)
+    c_position = BTN_FONT2.render(position, True, WHITE)
+    c_position_rect = c_position.get_rect()
+    c_position_rect.center = (40, 40)
+    DISPLAY_SURFACE.blit(c_position, c_position_rect)
+    return c_position_rect
+
 
 # Game loop
 def main():
