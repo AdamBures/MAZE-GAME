@@ -68,6 +68,7 @@ def run_game():
 
     # main loop
     while True:
+        draw_score()
         mouse_clicked = False
 
         for event in pygame.event.get():
