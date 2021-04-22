@@ -5,14 +5,18 @@ Includes several constant that are used in other files.
 
 ### `Labyrinth`:
 There is defined `class Labyrinth`
-```python 
+```python
 def __init__(self, labyrinth: list[list[str]]):
-    # Declares and initializes attr `laybirinth` to the value of the same 
+    # Declares and initializes attr `labyrinth` to the value of the same 
     # name parameter `labyrinth`
     ...
 
 def __getitem__(self, item: int):
     # Makes instances of this class subscriptable
+    ...
+    
+def __len__(self):
+    # Returns len of the attr `labyrinth`
     ...
 ```
 
@@ -51,7 +55,8 @@ def __convert_position(self, row_position: int = None, col_position: int = None)
 
 def __predecessors_list(self, labyrinth: list[list[str]]) -> dict[int, Union[int, list[int]]]:
     # BSF algorithm that search for the shortest path to end
-    # I tried to reduce time complexity by changing 2d position in list to 1d position represented by one number
+    # I tried to reduce time complexity by changing 2d position in list to 1d position 
+    # represented by one number
     # Returns dictionary containing it
     ...
 
