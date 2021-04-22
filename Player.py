@@ -42,15 +42,12 @@ class Player:
         next_col = self.__col_position + add_col
         if len(self.__labyrinth[0]) > next_row >= 0:
             if len(self.__labyrinth) > next_col >= 0:
-                if self.__labyrinth[next_row][next_col] == '_':
+                if self.__labyrinth[next_row][next_col] == '_' or self.__labyrinth[next_row][next_col] == 'S':
                     # change player's position
                     self.__row_position += add_row
                     self.__col_position += add_col
 
-                    # change player's labyrinth
-                    self.__labyrinth[self.__row_position][self.__col_position] = '_'
-                    self.__labyrinth[next_row][next_col] = 'S'
-            # todo: what happens when player steps on exit (field 'S')?
+            # todo: what happens when player steps on exit (field 'X')?
 
     def __convert_position(self, row_position: int = None, col_position: int = None) -> int:
         """
