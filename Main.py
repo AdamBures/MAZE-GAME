@@ -90,6 +90,7 @@ def run_game():
 
             # movement
             elif event.type == KEYUP:
+                current_position_vis()
                 if event.key == K_UP or event.key == K_w:
                     PLAYER.change_position(-1, 0)
                 elif event.key == K_DOWN or event.key == K_s:
