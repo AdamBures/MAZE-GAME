@@ -1,4 +1,4 @@
-from typing import Union
+from typing import Union, List, Dict
 
 import Labyrinth
 
@@ -22,7 +22,7 @@ class Player:
 
         return row_position * len(self.labyrinth[0]) + col_position
 
-    def __predecessors_list(self) -> dict[int, Union[int, list[int]]]:
+    def __predecessors_list(self) -> Dict[int, Union[int, List[int]]]:
         """
         Set all position in 2d list in predecessors dictionary to -1, then to certain key add tuple of its predecessor
         until end of maze is found
@@ -70,7 +70,7 @@ class Player:
 
         return predecessors
 
-    def __path_to_end(self, dest: int) -> list[list[int]]:
+    def __path_to_end(self, dest: int) -> List[List[int]]:
         """
         Find the path that leads from player position to end of a given maze
         :param dest: Integer position of end of a given maze
@@ -88,7 +88,7 @@ class Player:
 
         return path[::-1]
 
-    def next_position(self, dest: int) -> list[int]:
+    def next_position(self, dest: int) -> List[int]:
         """
         Find a next position of a player
         :param dest: Integer position of end of a given maze
