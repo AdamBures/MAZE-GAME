@@ -61,6 +61,19 @@ def draw_labyrinth():
             pygame.display.update()
 
 
+def draw_menu_btn() -> pygame.Rect:
+    """
+    Draw menu button to surface and return rectangle (check for collide points in game loop)
+    :return: Rectangle object
+    """
+    btn_menu = BTN_FONT2.render("Menu", True, WHITE)
+    btn_menu_rect = btn_menu.get_rect()
+    btn_menu_rect.center = (40, WINDOW_HEIGHT / 2)
+    DISPLAY_SURFACE.blit(btn_menu, btn_menu_rect)
+
+    return btn_menu_rect
+
+
 # Game loop
 def main():
     while True:
