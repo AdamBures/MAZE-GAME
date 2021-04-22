@@ -81,7 +81,6 @@ def current_position_vis():
     '''
     pygame.draw.rect(DISPLAY_SURFACE, BLACK, (0, 0, 80, 80))
     position = PLAYER.get_position()
-    player_position_icon(position)
     position = str(position)
     c_position = BTN_FONT2.render(position, True, WHITE)
     c_position_rect = c_position.get_rect()
