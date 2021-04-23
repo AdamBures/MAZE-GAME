@@ -69,6 +69,8 @@ def run_game():
     # main loop
     while True:
         draw_score()
+        draw_timer(TIME_LEFT)
+        TIME_LEFT += 1
         mouse_clicked = False
 
         for event in pygame.event.get():
