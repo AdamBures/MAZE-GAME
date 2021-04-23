@@ -1,6 +1,5 @@
-from pygame.locals import *
-import time
 from Const import *
+from Labyrinth import WALL, CELL, START, EXIT
 
 # blk stands for block
 # the height of each of the blocks is supposed to be the same as their width
@@ -28,7 +27,7 @@ def draw_labyrinth():
         for j in range(len(LABYRINTH[0])):
             rect = pygame.Rect(X_BLK_START + (BLK_SIZE * j), Y_BLK_START + (BLK_SIZE * i), BLK_SIZE - 2, BLK_SIZE - 2)
             # wall
-            if MAP1[i][j] == '#':
+            if LABYRINTH[i][j] == WALL:
                 pygame.draw.rect(DISPLAY_SURFACE, BROWN, rect)
                 # - 2 -> used to make space between blocks
                 # first line goes from top left corner to the middle of right side of the block
@@ -49,12 +48,12 @@ def draw_labyrinth():
                 pygame.draw.line(DISPLAY_SURFACE, BLACK, (X_COORDS, Y_COORDS + (BLK_SIZE // 2)),
                                  (X_COORDS + BLK_SIZE - 2, Y_COORDS + BLK_SIZE - 2), 1)
             # road
-            if MAP1[i][j] == '_':
+            if LABYRINTH[i][j] == CELL:
                 pygame.draw.rect(DISPLAY_SURFACE, GREEN, rect)
             # start (player spawn) and the end
-            if MAP1[i][j] == 'X' or MAP1[i][j] == 'S':
+            if LABYRINTH[i][j] == EXIT or LABYRINTH[i][j] == START:
                 pygame.draw.rect(DISPLAY_SURFACE, BLUE, rect)
-                if MAP1[i][j] == 'X':
+                if LABYRINTH[i][j] == EXIT:
                     pygame.draw.circle(DISPLAY_SURFACE, WHITE, ((X_BLK_START + (BLK_SIZE * j) + (BLK_SIZE - 2) // 2),
                                                                 Y_BLK_START + (BLK_SIZE * i) + ((BLK_SIZE - 2) // 2)),
                                        (BLK_SIZE - 2) // 2)
@@ -73,20 +72,21 @@ def draw_menu_btn() -> pygame.Rect:
 
     return btn_menu_rect
 
-def draw_timer(TIME_LEFT) -> pygame.Rect:
-    total_mins = TIME_LEFT//60 # minutes left
-    total_sec = TIME_LEFT-(60*(total_mins)) #seconds left
-    time.sleep(1)
-    time_menu = TIME_FONT.render(f"{total_mins}:{total_sec}", True, WHITE)
+
+def draw_timer(TIME_LEFT: int):
+    total_minutes = TIME_LEFT // 60  # minutes left
+    total_sec = TIME_LEFT - (60 * total_minutes)  # seconds left
+    time_menu = TIME_FONT.render(f"{total_minutes}:{total_sec}", True, WHITE)
     time_rect = time_menu.get_rect()
     time_rect.center = (40, (WINDOW_HEIGHT / 2) - 150)
     DISPLAY_SURFACE.blit(time_menu, time_rect)
-    print(total_mins, total_sec)
+    print(total_minutes, total_sec)
+
 
 def draw_score() -> None:
     """
     Draw score and number.
-    :return None
+    :return: None
     """
     score_menu = SCORE_FONT.render("Score", True, WHITE)
     score_rect = score_menu.get_rect()
