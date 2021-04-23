@@ -1,32 +1,82 @@
-from typing import Union, List, Dict, Tuple
+from typing import Union, List, Dict, Tuple, Optional
 
 import Labyrinth
+
+ROW_MOVE = [0, 0, -1, 1]
+COL_MOVE = [1, -1, 0, 0]
 
 
 class Player:
 
-    def __init__(self, labyrinth: Labyrinth, row_position: int, col_position: int):
+    def __init__(self, labyrinth: Labyrinth, row_position: Optional[int] = None, col_position: Optional[int] = None):
+        self.__labyrinth = labyrinth
         self.__row_position = row_position
         self.__col_position = col_position
-        self.__labyrinth = labyrinth
+
+        if row_position is None or col_position is None:
+            self.__get_random_player_position()
+
 
     @staticmethod
     def find_player_position(labyrinth: Labyrinth) -> Tuple[int, int]:
         """
-        Find player position in labyrinth
+        Finds player position in labyrinth
         :param labyrinth: 2d string list
         :return: Tuple containing row and col position
         """
         for row in range(0, len(labyrinth)):
             for col in range(0, len(labyrinth[0])):
-                if labyrinth[row][col] == 'S':
+                if labyrinth[row][col] == Labyrinth.START:
                     return row, col
 
         # todo: handle exception, if there is no field holding 'S' then something is wrong
         return -1, -1
 
+
+    @staticmethod
+    def find_exit_position(labyrinth: Labyrinth) -> Tuple[int, int]:
+        """
+        Finds exit position in labyrinth
+        :param labyrinth: 2d string list
+        :return: Tuple containing row and col position
+        """
+        for row in range(0, len(labyrinth)):
+            for col in range(0, len(labyrinth[0])):
+                if labyrinth[row][col] == Labyrinth.EXIT:
+                    return row, col
+
+        # todo: handle exception, if there is no field holding 'X' then something is wrong
+        return -1, -1
+
+
+    def __get_random_player_position(self) -> Tuple[int, int]:
+        """
+        Gets random player position which will be at least length of labyrinth
+        :return: Tuple of position in the labyrinth
+        """
+        no_player_position = True
+        no_start = True
+        while no_player_position:
+            for row in range(0, self.__labyrinth.labyrinth_height):
+                for col in range(0, self.__labyrinth.labyrinth_width):
+                    if self.__labyrinth[row][col] == Labyrinth.CELL:
+                        self.__row_position = row
+                        self.__col_position = col
+
+                        if len(self.__path_to_end()) > self.__labyrinth.labyrinth_width and \
+                                len(self.__path_to_end()) > self.__labyrinth.labyrinth_height:
+                            if no_start:
+                                self.__labyrinth[row][col] = Labyrinth.START
+                                no_start = False
+
+                            no_player_position = False
+                            break
+
+        return self.__row_position, self.__col_position
+
     def get_position(self):
         """
+        Gets encapsulated position of a player
         :return: Current position of a player
         """
         return self.__row_position, self.__col_position
@@ -77,9 +127,6 @@ class Player:
 
         states[self.__convert_position()] = True
 
-        row_move = [0, 0, -1, 1]
-        col_move = [1, -1, 0, 0]
-
         row_queue = [self.__row_position]
         col_queue = [self.__col_position]
 
@@ -88,8 +135,8 @@ class Player:
             current_col = col_queue.pop(0)
 
             for i in range(0, 4):
-                next_row = current_row + row_move[i]
-                next_col = current_col + col_move[i]
+                next_row = current_row + ROW_MOVE[i]
+                next_col = current_col + COL_MOVE[i]
 
                 if self.__labyrinth[next_row][next_col] == "#":
                     continue
@@ -109,14 +156,17 @@ class Player:
 
         return predecessors
 
-    def __path_to_end(self, dest: int) -> List[List[int]]:
+    def __path_to_end(self) -> List[List[int]]:
         """
         Find the path that leads from player position to end of a given maze
-        :param dest: Integer position of end of a given maze
         :return: List containing all position player must go to exit the maze
         """
         predecessors = self.__predecessors_list()
         path = []
+
+        row_exit, col_exit = Player.find_exit_position(self.__labyrinth)
+        dest = self.__convert_position(row_exit, col_exit)
+
         v = dest
 
         path.append([v // 10, v % 10])
@@ -127,10 +177,9 @@ class Player:
 
         return path[::-1]
 
-    def next_position(self, dest: int) -> List[int]:
+    def next_position(self) -> List[int]:
         """
         Find a next position of a player
-        :param dest: Integer position of end of a given maze
         :return: Nex position of a player
         """
-        return self.__path_to_end(dest)[1]
+        return self.__path_to_end()[1]

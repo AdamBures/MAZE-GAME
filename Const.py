@@ -17,13 +17,15 @@ MAP1 = [['#', '#', '#', '#', '#', '#', '#', '#', '#', '#'],
         ['#', '_', '_', '_', '_', '_', '_', '_', '_', '#'],
         ['#', '#', '#', '#', '#', '#', '#', '#', '#', '#']]
 
+ROW_MOVE = [0, 0, -1, 1]
+COL_MOVE = [1, -1, 0, 0]
+
 WINDOW_WIDTH = 640
 WINDOW_HEIGHT = 480
 DISPLAY_SURFACE = pygame.display.set_mode((WINDOW_WIDTH, WINDOW_HEIGHT))
 
-LABYRINTH = Labyrinth(MAP1)
-START_ROW, START_COL = Player.find_player_position(LABYRINTH)
-PLAYER = Player(LABYRINTH, START_ROW, START_COL)
+LABYRINTH = Labyrinth(len(MAP1), len(MAP1[0]))
+PLAYER = Player(LABYRINTH)
 
 WHITE = (255, 255, 255)
 BG_COLOR = (0, 0, 0)
