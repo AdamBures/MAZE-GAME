@@ -16,7 +16,6 @@ class Player:
         if row_position is None or col_position is None:
             self.__get_random_player_position()
 
-
     @staticmethod
     def find_player_position(labyrinth: Labyrinth) -> Tuple[int, int]:
         """
@@ -31,7 +30,6 @@ class Player:
 
         # todo: handle exception, if there is no field holding 'S' then something is wrong
         return -1, -1
-
 
     @staticmethod
     def find_exit_position(labyrinth: Labyrinth) -> Tuple[int, int]:
@@ -48,29 +46,23 @@ class Player:
         # todo: handle exception, if there is no field holding 'X' then something is wrong
         return -1, -1
 
-
     def __get_random_player_position(self) -> Tuple[int, int]:
         """
         Gets random player position which will be at least length of labyrinth
         :return: Tuple of position in the labyrinth
         """
         no_player_position = True
-        no_start = True
         while no_player_position:
             for row in range(0, self.__labyrinth.labyrinth_height):
                 for col in range(0, self.__labyrinth.labyrinth_width):
-                    if self.__labyrinth[row][col] == Labyrinth.CELL:
+                    if self.__labyrinth[row][col] == Labyrinth.CELL and no_player_position:
                         self.__row_position = row
                         self.__col_position = col
 
                         if len(self.__path_to_end()) > self.__labyrinth.labyrinth_width and \
-                                len(self.__path_to_end()) > self.__labyrinth.labyrinth_height:
-                            if no_start:
-                                self.__labyrinth[row][col] = Labyrinth.START
-                                no_start = False
-
+                           len(self.__path_to_end()) > self.__labyrinth.labyrinth_height:
+                            self.__labyrinth[row][col] = Labyrinth.START
                             no_player_position = False
-                            break
 
         return self.__row_position, self.__col_position
 
