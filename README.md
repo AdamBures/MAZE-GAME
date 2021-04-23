@@ -6,11 +6,15 @@ Includes several constants that are used in other files.
 ### `Labyrinth`:
 There is defined `class Labyrinth`
 ```python
-from typing import List
+from typing import List, Tuple, Optional
+from random import random, choice, seed
+from time import time
 
-def __init__(self, labyrinth: List[List[str]]):
-    # Declares and initializes attr `labyrinth` to the value of the same 
-    # name parameter `labyrinth`
+
+def __init__(self, labyrinth_height: int, labyrinth_width: int, 
+             labyrinth: Optional[List[List[str]]]):
+    # Initializes labyrinth. If parameter `labyrinth` is not set, 
+    # labyrinth will be automatically generate by `generate_maze` method
     ...
 
 def __getitem__(self, item: int):
@@ -19,6 +23,41 @@ def __getitem__(self, item: int):
     
 def __len__(self):
     # Returns len of the attr `labyrinth`
+    ...
+
+def __init_maze(self) -> None:
+    # Initializes "empty" labyrinth. Mark all cells in that labyrinth as EMPTY cells
+    ...
+
+def __generate_random_position(self) -> Tuple[int, int]:
+    # Generates random position in labyrinth which is not on the edge of it
+    ...
+
+def __count_adjacent_cells(self, wall: List[int]) -> int:
+    # Counts how many field around `wall` parameter are CELLs (cell in a 
+    # labyrinth where player can step)
+    ...
+
+def __mark_next_walls(self, walls: List[List[int]], current_wall: List[int]) -> None:
+    # Find all adjacent cells which are not CELLs and mark them as WALLs
+    ...
+
+def __update_walls_list(self, walls: List[List[int]], wall: List[int]) -> None:
+    # If there are no more than 2 adjacent CELLs (see `__count_adjacent_cells` method) 
+    # then update walls in labyrinth and walls list.
+    ...
+    
+def __mark_remaining_walls(self) -> None:
+    # When generating a labyrinth is at the end, all cells that are still EMPTY
+    # will be marked as WALLs
+    ...
+
+def __set_exit(self) -> None:
+    # Chooses random possible exit from a maze
+    ...
+
+def __generate_maze(self) -> None:
+    # Generates random labyrinth with Randomized Prim's Algorithm
     ...
 ```
 
@@ -44,8 +83,9 @@ def main():
 ### `Player`:
 There is defined `class Player`
 ```python
-from typing import Union, Tuple, Dict, List
+from typing import Union, List, Dict, Tuple, Optional
 import Labyrinth
+
 
 def __init__(self, labyrinth: Labyrinth, row_position: int, col_position: int):
     # Initializes player position in the labyrinth
@@ -54,6 +94,16 @@ def __init__(self, labyrinth: Labyrinth, row_position: int, col_position: int):
 @staticmethod
 def find_player_position(labyrinth: Labyrinth) -> Tuple[int, int]:
     # Finds player's current position
+    ...
+
+@staticmethod
+def find_exit_position(labyrinth: Labyrinth) -> Tuple[int, int]:
+    # Finds exit position in labyrinth
+    ...
+
+def __get_random_player_position(self) -> Tuple[int, int]:
+    # Gets random player's position which will be at least length of a labyrinth 
+    # far away from exit
     ...
 
 def get_position(self):
