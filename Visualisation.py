@@ -73,9 +73,11 @@ def draw_menu_btn() -> pygame.Rect:
 
     return btn_menu_rect
 
-def draw_score() -> pygame.Rect:
+
+def draw_score() -> None:
     """
     Draw score and number.
+    :return None
     """
     score_menu = SCORE_FONT.render("Score", True, WHITE)
     score_rect = score_menu.get_rect()
@@ -86,12 +88,13 @@ def draw_score() -> pygame.Rect:
     number_rect.center = (40, (WINDOW_HEIGHT / 2) + 80)
     DISPLAY_SURFACE.blit(number_menu, number_rect)
 
-def current_position_vis():
-    '''
+
+def current_position_vis() -> None:
+    """
     Show current player position while in game
     the first rect creation is to overwrite the previous c_position_rect
-    :return:
-    '''
+    :return: None
+    """
     pygame.draw.rect(DISPLAY_SURFACE, BLACK, (0, 0, 80, 80))
     position = PLAYER.get_position()
     position = str(position)
@@ -100,18 +103,3 @@ def current_position_vis():
     c_position_rect.center = (40, 40)
     DISPLAY_SURFACE.blit(c_position, c_position_rect)
     return c_position_rect
-
-
-# Game loop
-def main():
-    while True:
-        draw_labyrinth()
-        for event in pygame.event.get():
-            if event.type == QUIT:
-                pygame.quit()
-                exit()
-            pygame.display.update()
-
-
-if __name__ == '__main__':
-    main()
