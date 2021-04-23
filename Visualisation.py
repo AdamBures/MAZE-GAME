@@ -73,6 +73,15 @@ def draw_menu_btn() -> pygame.Rect:
 
     return btn_menu_rect
 
+def draw_timer(TIME_LEFT) -> pygame.Rect:
+    total_mins = TIME_LEFT//60 # minutes left
+    total_sec = TIME_LEFT-(60*(total_mins)) #seconds left
+    time.sleep(1)
+    time_menu = TIME_FONT.render(f"{total_mins}:{total_sec}", True, WHITE)
+    time_rect = time_menu.get_rect()
+    time_rect.center = (40, (WINDOW_HEIGHT / 2) - 150)
+    DISPLAY_SURFACE.blit(time_menu, time_rect)
+    print(total_mins, total_sec)
 
 def draw_score() -> None:
     """
