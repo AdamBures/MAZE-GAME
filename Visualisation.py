@@ -14,6 +14,9 @@ BLK_NUM = len(LABYRINTH[0])
 
 # block size
 BLK_SIZE = WINDOW_HEIGHT // BLK_NUM
+RESIZE_IMG = BLK_SIZE // 16
+im_Wall = pygame.transform.rotozoom(im_Wall, 0, RESIZE_IMG)
+im_Floor = pygame.transform.rotozoom(im_Floor, 0, RESIZE_IMG)
 
 # end of the block, depending on their row and column position
 # this one is for the end of the first block
@@ -26,30 +29,18 @@ def draw_labyrinth():
     for i in range(len(LABYRINTH[0])):
         for j in range(len(LABYRINTH[0])):
             rect = pygame.Rect(X_BLK_START + (BLK_SIZE * j), Y_BLK_START + (BLK_SIZE * i), BLK_SIZE - 2, BLK_SIZE - 2)
+            
+            # X_COORDS is X coordinate of left side of the particular block
+            # Y_COORDS is Y coordinate of top side of the particular block
+            X_COORDS = X_BLK_START + (BLK_SIZE * j)
+            Y_COORDS = Y_BLK_START + (BLK_SIZE * i)
+            
             # wall
             if LABYRINTH[i][j] == WALL:
-                pygame.draw.rect(DISPLAY_SURFACE, BROWN, rect)
-                # - 2 -> used to make space between blocks
-                # first line goes from top left corner to the middle of right side of the block
-                # second line goes from the middle of the right side to the bottom left corner
-                # third line goes from top right corner to the middle of the left side
-                # fourth line goes from the middle of the left side to the bottom right corner
-                # X_COORDS is X coordinate of left side of the particular block
-                # Y_COORDS is Y coordinate of top side of the particular block
-                X_COORDS = X_BLK_START + (BLK_SIZE * j)
-                Y_COORDS = Y_BLK_START + (BLK_SIZE * i)
-
-                pygame.draw.line(DISPLAY_SURFACE, BLACK, (X_COORDS, Y_COORDS),
-                                 (X_COORDS + BLK_SIZE - 2, Y_COORDS + (BLK_SIZE // 2) - 2), 1)
-                pygame.draw.line(DISPLAY_SURFACE, BLACK, (X_COORDS + BLK_SIZE - 2, Y_COORDS + (BLK_SIZE // 2) - 2),
-                                 (X_COORDS, Y_COORDS + BLK_SIZE - 2), 1)
-                pygame.draw.line(DISPLAY_SURFACE, BLACK, (X_COORDS + BLK_SIZE - 2, Y_COORDS),
-                                 (X_COORDS, Y_COORDS + (BLK_SIZE // 2) - 2), 1)
-                pygame.draw.line(DISPLAY_SURFACE, BLACK, (X_COORDS, Y_COORDS + (BLK_SIZE // 2)),
-                                 (X_COORDS + BLK_SIZE - 2, Y_COORDS + BLK_SIZE - 2), 1)
+                DISPLAY_SURFACE.blit(im_Wall, (X_COORDS, Y_COORDS))
             # road
             if LABYRINTH[i][j] == CELL:
-                pygame.draw.rect(DISPLAY_SURFACE, GREEN, rect)
+                DISPLAY_SURFACE.blit(im_Floor, (X_COORDS, Y_COORDS))
             # start (player spawn) and the end
             if LABYRINTH[i][j] == EXIT or LABYRINTH[i][j] == START:
                 pygame.draw.rect(DISPLAY_SURFACE, BLUE, rect)
