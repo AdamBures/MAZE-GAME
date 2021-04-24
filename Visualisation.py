@@ -31,6 +31,10 @@ Y_BLK_END = Y_BLK_START + BLK_SIZE
 
 
 def draw_labyrinth():
+    """
+    todo: fill the f***ing docstring please xd
+    :return:
+    """
     # blocks are being drawn in rows, not columns
     for i in range(len(LABYRINTH[0])):
         for j in range(len(LABYRINTH[0])):
@@ -51,7 +55,7 @@ def draw_labyrinth():
             if LABYRINTH[i][j] == START:
                 DISPLAY_SURFACE.blit(im_start, (X_COORDS, Y_COORDS))
             if LABYRINTH[i][j] == EXIT:
-                    DISPLAY_SURFACE.blit(im_end, (X_COORDS, Y_COORDS))
+                DISPLAY_SURFACE.blit(im_end, (X_COORDS, Y_COORDS))
             pygame.display.update()
 
 
@@ -90,7 +94,7 @@ def current_position_vis() -> None:
     :return: None
     """
     pygame.draw.rect(DISPLAY_SURFACE, BLACK, (0, 0, 80, 80))
-    position = PLAYER.get_position()
+    position = PLAYER.get_current_position()
     position = str(position)
     c_position = BTN_FONT2.render(position, True, WHITE)
     c_position_rect = c_position.get_rect()
@@ -98,23 +102,13 @@ def current_position_vis() -> None:
     DISPLAY_SURFACE.blit(c_position, c_position_rect)
     return c_position_rect
 
-def current_position_vis() -> None:
-    """
-    Show current player position while in game
-    the first rect creation is to overwrite the previous c_position_rect
-    :return: None
-    """
-    pygame.draw.rect(DISPLAY_SURFACE, BLACK, (0, 0, 80, 80))
-    position = PLAYER.get_position()
-    position = str(position)
-    c_position = BTN_FONT2.render(position, True, WHITE)
-    c_position_rect = c_position.get_rect()
-    c_position_rect.center = (40, 40)
-    DISPLAY_SURFACE.blit(c_position, c_position_rect)
-    return c_position_rect
 
 def player_pos_change():
-    pos_y, pos_x = PLAYER.get_position()
+    """
+    todo: fill the f***ing docstring please xd
+    :return:
+    """
+    pos_y, pos_x = PLAYER.get_current_position()
     real_pos_x = X_BLK_START + (BLK_SIZE * pos_x)
     real_pos_y = Y_BLK_START + (BLK_SIZE * pos_y)
     draw_labyrinth()
