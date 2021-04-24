@@ -44,5 +44,10 @@ NUMBER = 0
 FPS = 30
 FPS_CLOCK = pygame.time.Clock()
 
+# here you can change the type of tile for floor/wall,..
 im_Wall = pygame.image.load(r'Wall_Brick.png')
-im_Floor = pygame.image.load(r'Floor.png')
+im_Floor = pygame.image.load(r'floor_1.png')
+im_end = pygame.image.load(r'floor_ladder.png')
+im_start = pygame.image.load(r'doors_start.png')
+
+imp_player = pygame.image.load(r'imp_player.png')
