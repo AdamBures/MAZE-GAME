@@ -43,3 +43,6 @@ SCORE_FONT = pygame.font.Font('freesansbold.ttf', 25)
 NUMBER = 0
 FPS = 30
 FPS_CLOCK = pygame.time.Clock()
+
+im_Wall = pygame.image.load(r'Wall_Brick.png')
+im_Floor = pygame.image.load(r'Floor.png')
