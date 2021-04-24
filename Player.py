@@ -14,6 +14,8 @@ class Player:
         self.__labyrinth = labyrinth
         self.__row_position = row_position
         self.__col_position = col_position
+        self.__previous_row_position = None
+        self.__previous_col_position = None
         self.__visible = []
 
         if row_position is None or col_position is None:
@@ -51,7 +53,11 @@ class Player:
         # todo: handle exception, if there is no field holding 'X' then something is wrong
         return -1, -1
 
-    def __add_visible(self):
+    def __add_visible(self) -> None:
+        """
+        Add position of the cells, player is currently seeing, to visible list
+        :return: None
+        """
         for i in range(0, 7):
             visible_row = self.__row_position + ALL_ROW_MOVE[i]
             visible_col = self.__col_position + ALL_COL_MOVE[i]
@@ -85,12 +91,19 @@ class Player:
 
         return self.__row_position, self.__col_position
 
-    def get_position(self):
+    def get_current_position(self) -> Tuple[int, int]:
         """
         Gets encapsulated position of a player
         :return: Current position of a player
         """
         return self.__row_position, self.__col_position
+
+    def get_previous_position(self) -> Tuple[int, int]:
+        """
+        Gets encapsulated previous position of a player
+        :return: Previous position of a player
+        """
+        return self.__previous_row_position, self.__previous_col_position
 
     def change_position(self, add_row: int = 0, add_col: int = 0) -> None:
         """
@@ -99,6 +112,9 @@ class Player:
         :param add_col: Col which will be added to its origin position
         :return: None
         """
+        self.__previous_row_position = self.__row_position
+        self.__previous_col_position = self.__col_position
+
         next_row = self.__row_position + add_row
         next_col = self.__col_position + add_col
         if len(self.__labyrinth[0]) > next_row >= 0:
