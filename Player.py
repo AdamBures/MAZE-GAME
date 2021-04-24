@@ -4,6 +4,8 @@ import Labyrinth
 
 ROW_MOVE = [0, 0, -1, 1]
 COL_MOVE = [1, -1, 0, 0]
+ALL_ROW_MOVE = ROW_MOVE[:] + [-1, 1, 1, -1]
+ALL_COL_MOVE = COL_MOVE[:] + [-1, 1, -1, 1]
 
 
 class Player:
@@ -12,9 +14,12 @@ class Player:
         self.__labyrinth = labyrinth
         self.__row_position = row_position
         self.__col_position = col_position
+        self.__visible = []
 
         if row_position is None or col_position is None:
             self.__get_random_player_position()
+
+        self.__add_visible()
 
     @staticmethod
     def find_player_position(labyrinth: Labyrinth) -> Tuple[int, int]:
@@ -46,6 +51,20 @@ class Player:
         # todo: handle exception, if there is no field holding 'X' then something is wrong
         return -1, -1
 
+    def __add_visible(self):
+        for i in range(0, 7):
+            visible_row = self.__row_position + ALL_ROW_MOVE[i]
+            visible_col = self.__col_position + ALL_COL_MOVE[i]
+            if [visible_row, visible_col] not in self.__visible:
+                self.__visible.append([visible_row, visible_col])
+
+    def get_visible(self) -> List[List[int]]:
+        """
+        Returns fields that player has been to and one field to each direction around them
+        :return: List containing position of visible fields
+        """
+        return self.__visible
+
     def __get_random_player_position(self) -> Tuple[int, int]:
         """
         Gets random player position which will be at least length of labyrinth
@@ -60,7 +79,7 @@ class Player:
                         self.__col_position = col
 
                         if len(self.__path_to_end()) > self.__labyrinth.labyrinth_width and \
-                           len(self.__path_to_end()) > self.__labyrinth.labyrinth_height:
+                                len(self.__path_to_end()) > self.__labyrinth.labyrinth_height:
                             self.__labyrinth[row][col] = Labyrinth.START
                             no_player_position = False
 
@@ -88,6 +107,8 @@ class Player:
                     # change player's position
                     self.__row_position += add_row
                     self.__col_position += add_col
+
+                    self.__add_visible()
 
             # todo: what happens when player steps on exit (field 'X')?
 
