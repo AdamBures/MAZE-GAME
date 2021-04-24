@@ -101,13 +101,25 @@ def find_exit_position(labyrinth: Labyrinth) -> Tuple[int, int]:
     # Finds exit position in labyrinth
     ...
 
+def __add_visible(self) -> List[List[int]]:
+    # Add position of the cells, player is currently seeing, to visible list
+    ...
+
+def get_visible(self) -> List[List[int]]:
+    # Returns fields that player has been to and one field to each direction around them
+    ...
+
 def __get_random_player_position(self) -> Tuple[int, int]:
     # Gets random player's position which will be at least length of a labyrinth 
     # far away from exit
     ...
 
-def get_position(self):
-    # Returns position of a player
+def get_current_position(self) -> Tuple[int, int]:
+    # Returns current position of a player
+    ...
+
+def get_previous_position(self) -> Tuple[int, int]:
+    # Returns previous position of a player
     ...
 
 def __convert_position(self, row_position: int = None, col_position: int = None) -> int:
@@ -132,12 +144,25 @@ def next_position(self, labyrinth: List[List[str]], dest: int) -> List[int]:
 ### `Visualisation`:
 Displays the labyrinth to user
 ```python
-def draw_labyrinth():
-    # Draw background (labyrinth) to window surface
+def draw_labyrinth() -> None:
+    # Draws background (labyrinth) to window surface
     ...
 
-def draw_menu_btn():
-    # Draw menu btn to surface
+def draw_menu_btn() -> pygame.Rect:
+    # Draws menu btn to surface
     # Returns btn rectangle
+    ...
+
+def draw_score() -> None:
+    # Displays score to surface
+    ...
+
+def current_position_vis() -> None:
+    # Shows current player's position
+    ...
+
+def player_pos_change() -> None:
+    # While I am writing this update to Readme
+    # I have no idea what this function does
     ...
 ```
