@@ -103,6 +103,7 @@ def run_game():
                 elif event.key == K_RIGHT or event.key == K_d:
                     PLAYER.change_position(0, 1)
                     current_position_vis()
+                player_pos_change()
 
         # todo: if position of player has changed, redraw his origin and forward position
         pygame.display.update()
