@@ -1,5 +1,4 @@
 import pygame
-
 from Labyrinth import Labyrinth
 from Player import Player
 
@@ -50,4 +49,6 @@ im_Floor = pygame.image.load(r'floor_1.png')
 im_end = pygame.image.load(r'floor_ladder.png')
 im_start = pygame.image.load(r'doors_start.png')
 
-imp_player = pygame.image.load(r'imp_player.png')
+WALK_RIGHT = [pygame.image.load(r'Models\Imp\R0.png'), pygame.image.load(r'Models\Imp\R1.png'), pygame.image.load(r'Models\Imp\R2.png'), pygame.image.load(r'Models\Imp\R3.png')]
+WALK_LEFT = [pygame.image.load(r'Models\Imp\L0.png'), pygame.image.load(r'Models\Imp\L1.png'), pygame.image.load(r'Models\Imp\L2.png'), pygame.image.load(r'Models\Imp\L3.png')]
+imp_player = pygame.image.load(r'Models\Imp\S0.png')
