@@ -32,7 +32,8 @@ Y_BLK_END = Y_BLK_START + BLK_SIZE
 
 def draw_labyrinth():
     """
-    todo: fill the f***ing docstring please xd
+    graphic design for the labyrinth walls, cells, start and exit block
+    draws the whole labyrinth...
     :return:
     """
     # blocks are being drawn in rows, not columns
@@ -105,8 +106,10 @@ def current_position_vis() -> None:
 
 def player_pos_change():
     """
-    todo: fill the f***ing docstring please xd
-    :return:
+    pos_y and pos_x holds the position of block on which player stands
+    real_pos_x and real_pos_y transforms the player position to real coordinates for drawing the image of player
+    draw_labyrinth deletes the old images of player in labyrinth from previous position
+    :return: image of player on screen
     """
     pos_y, pos_x = PLAYER.get_current_position()
     real_pos_x = X_BLK_START + (BLK_SIZE * pos_x)
