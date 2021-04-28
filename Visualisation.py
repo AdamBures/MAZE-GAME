@@ -1,5 +1,5 @@
 from Const import *
-from Labyrinth import WALL, CELL, START, EXIT
+from Labyrinth import WALL, FLOOR, START, EXIT
 
 # blk stands for block
 # the height of each of the blocks is supposed to be the same as their width
@@ -30,11 +30,11 @@ X_BLK_END = X_BLK_START + BLK_SIZE
 Y_BLK_END = Y_BLK_START + BLK_SIZE
 
 
-def draw_labyrinth():
+def draw_labyrinth() -> None:
     """
-    graphic design for the labyrinth walls, cells, start and exit block
+    Graphic design for the labyrinth walls, cells, start and exit block
     draws the whole labyrinth...
-    :return:
+    :return: None
     """
     # blocks are being drawn in rows, not columns
     for i in range(len(LABYRINTH[0])):
@@ -50,7 +50,7 @@ def draw_labyrinth():
             if LABYRINTH[i][j] == WALL:
                 DISPLAY_SURFACE.blit(im_Wall, (X_COORDS, Y_COORDS))
             # road
-            if LABYRINTH[i][j] == CELL:
+            if LABYRINTH[i][j] == FLOOR:
                 DISPLAY_SURFACE.blit(im_Floor, (X_COORDS, Y_COORDS))
             # start (player spawn) and the end
             if LABYRINTH[i][j] == START:
@@ -75,7 +75,7 @@ def draw_menu_btn() -> pygame.Rect:
 
 def draw_score() -> None:
     """
-    Draw score and number.
+    Draw score and number
     :return: None
     """
     score_menu = SCORE_FONT.render("Score", True, WHITE)
@@ -90,7 +90,7 @@ def draw_score() -> None:
 
 def current_position_vis() -> None:
     """
-    Show current player position while in game
+    Show current player position while in the game
     the first rect creation is to overwrite the previous c_position_rect
     :return: None
     """
@@ -104,16 +104,15 @@ def current_position_vis() -> None:
     return c_position_rect
 
 
-def player_pos_change():
+def player_pos_change() -> None:
     """
-    pos_y and pos_x holds the position of block on which player stands
+    Pos_y and pos_x holds the position of block on which player stands
     real_pos_x and real_pos_y transforms the player position to real coordinates for drawing the image of player
     draw_labyrinth deletes the old images of player in labyrinth from previous position
-    :return: image of player on screen
+    :return: Image of player on screen
     """
     pos_y, pos_x = PLAYER.get_current_position()
     real_pos_x = X_BLK_START + (BLK_SIZE * pos_x)
     real_pos_y = Y_BLK_START + (BLK_SIZE * pos_y)
     draw_labyrinth()
     DISPLAY_SURFACE.blit(imp_player, (real_pos_x, real_pos_y))
-    return

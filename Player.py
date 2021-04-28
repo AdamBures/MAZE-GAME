@@ -80,7 +80,7 @@ class Player:
         while no_player_position:
             for row in range(0, self.__labyrinth.labyrinth_height):
                 for col in range(0, self.__labyrinth.labyrinth_width):
-                    if self.__labyrinth[row][col] == Labyrinth.CELL and no_player_position:
+                    if self.__labyrinth[row][col] == Labyrinth.FLOOR and no_player_position:
                         self.__row_position = row
                         self.__col_position = col
 

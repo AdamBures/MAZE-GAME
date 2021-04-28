@@ -5,7 +5,18 @@ from typing import List, Tuple, Optional
 seed(time())
 
 WALL = '#'
-CELL = '_'
+
+# types of wall ->
+RIGHT_BOTTOM_WALL = 'wall_right_bottom'
+LEFT_BOTTOM_WALL = 'wall_left_bottom'
+RIGHT_UPPER_WALL = 'wall_right_up'
+LEFT_UPPER_WALL = 'wall_left_up'
+MIDDLE_BOTTOM_WALL = 'wall_middle_bottom'
+MIDDLE_UPPER_WALL = 'wall_middle_up'
+MIDDLE_RIGHT_WALL = 'wall_middle_right'
+MIDDLE_LEFT_WALL = 'wall_middle_left'
+
+FLOOR = '_'
 EXIT = 'X'
 START = 'S'
 EMPTY = 'U'
@@ -79,17 +90,17 @@ class Labyrinth:
         """
         Counts adjacent cells around the wall provided
         :param wall: Tuple indicating position of a wall in the labyrinth
-        :return: How many CELL are adjacent to the wall
+        :return: How many FLOOR are adjacent to the wall
         """
         cells = 0
 
-        if self.labyrinth[wall[0] - 1][wall[1]] == CELL:
+        if self.labyrinth[wall[0] - 1][wall[1]] == FLOOR:
             cells += 1
-        if self.labyrinth[wall[0] + 1][wall[1]] == CELL:
+        if self.labyrinth[wall[0] + 1][wall[1]] == FLOOR:
             cells += 1
-        if self.labyrinth[wall[0]][wall[1] - 1] == CELL:
+        if self.labyrinth[wall[0]][wall[1] - 1] == FLOOR:
             cells += 1
-        if self.labyrinth[wall[0]][wall[1] + 1] == CELL:
+        if self.labyrinth[wall[0]][wall[1] + 1] == FLOOR:
             cells += 1
 
         return cells
@@ -103,23 +114,23 @@ class Labyrinth:
         """
         for i in range(0, 4):
             next_field = current_wall[0] + ROW_MOVE[i], current_wall[1] + COL_MOVE[i]
-            if self.labyrinth[next_field[0]][next_field[1]] != CELL:
+            if self.labyrinth[next_field[0]][next_field[1]] != FLOOR:
                 self.labyrinth[current_wall[0] + ROW_MOVE[i]][current_wall[1] + COL_MOVE[i]] = WALL
                 if next_field not in walls:
                     walls.append([current_wall[0] + ROW_MOVE[i], current_wall[1] + COL_MOVE[i]])
 
     def __update_walls_list(self, walls: List[List[int]], wall: List[int]) -> None:
         """
-        If there are no more than 2 adjacent CELLs then update walls in labyrinth and walls list.
+        If there are no more than 2 adjacent FLOORs then update walls in labyrinth and walls list.
         Then remove current wall from walls
         :param walls: List containing all walls
         :param wall: Current wall which is being processed
         :return: None
         """
-        # count adjacent CELL and if there are no more than 2
+        # count adjacent FLOOR and if there are no more than 2
         if self.__count_adjacent_cells(wall) < 2:
-            # set the current wall to a passage -> CELL
-            self.labyrinth[wall[0]][wall[1]] = CELL
+            # set the current wall to a passage -> FLOOR
+            self.labyrinth[wall[0]][wall[1]] = FLOOR
 
             # repeat the starting process -> find adjacent walls, mark them in labyrinth and add them to
             # the list of walls
@@ -145,15 +156,15 @@ class Labyrinth:
         possible_exit = []
 
         for col in range(0, self.labyrinth_width):
-            if self.labyrinth[1][col] == CELL:
+            if self.labyrinth[1][col] == FLOOR:
                 possible_exit.append([0, col])
-            if self.labyrinth[self.labyrinth_height - 1][col] == CELL:
+            if self.labyrinth[self.labyrinth_height - 1][col] == FLOOR:
                 possible_exit.append([self.labyrinth_height - 1, col])
 
         for row in range(0, self.labyrinth_height):
-            if self.labyrinth[row][1] == CELL:
+            if self.labyrinth[row][1] == FLOOR:
                 possible_exit.append([row, 0])
-            if self.labyrinth[self.labyrinth_width - 1][row] == CELL:
+            if self.labyrinth[self.labyrinth_width - 1][row] == FLOOR:
                 possible_exit.append([self.labyrinth_width - 1][row])
 
         exit_row, exit_col = choice(possible_exit)
@@ -169,7 +180,7 @@ class Labyrinth:
 
         # select random first cell in labyrinth and mark it as 'free way'
         starting_row, starting_col = self.__generate_random_position()
-        self.labyrinth[starting_row][starting_col] = CELL
+        self.labyrinth[starting_row][starting_col] = FLOOR
 
         # for each adjacent cell in possible move, mark it as a wall and put their position into a list
         walls = []
@@ -185,16 +196,16 @@ class Labyrinth:
             # check whether the wall is or is not in the first or the last column
             if rand_wall[1] != 0 and rand_wall[1] != self.labyrinth_width - 1:
 
-                # check whether the sequence is 'EMPTY WALL CELL'
+                # check whether the sequence is 'EMPTY WALL FLOOR'
                 if self.labyrinth[rand_wall[0]][rand_wall[1] - 1] == EMPTY and \
-                        self.labyrinth[rand_wall[0]][rand_wall[1] + 1] == CELL:
+                        self.labyrinth[rand_wall[0]][rand_wall[1] + 1] == FLOOR:
 
                     # update walls and skip other steps
                     self.__update_walls_list(walls, rand_wall)
                     continue
 
-                # check whether the sequence is 'CELL WALL EMPTY'
-                elif self.labyrinth[rand_wall[0]][rand_wall[1] - 1] == CELL and \
+                # check whether the sequence is 'FLOOR WALL EMPTY'
+                elif self.labyrinth[rand_wall[0]][rand_wall[1] - 1] == FLOOR and \
                         self.labyrinth[rand_wall[0]][rand_wall[1] + 1] == EMPTY:
 
                     # update walls and skip other steps
@@ -206,18 +217,18 @@ class Labyrinth:
 
                 # check whether the sequence is     EMPTY
                 #                                   WALL
-                #                                   CELL
+                #                                   FLOOR
                 if self.labyrinth[rand_wall[0] - 1][rand_wall[1]] == EMPTY and \
-                        self.labyrinth[rand_wall[0] + 1][rand_wall[1]] == CELL:
+                        self.labyrinth[rand_wall[0] + 1][rand_wall[1]] == FLOOR:
 
                     # update walls and skip other steps
                     self.__update_walls_list(walls, rand_wall)
                     continue
 
-                # check whether the sequence is     CELL
+                # check whether the sequence is     FLOOR
                 #                                   WALL
                 #                                   EMPTY
-                elif self.labyrinth[rand_wall[0] - 1][rand_wall[1]] == CELL and \
+                elif self.labyrinth[rand_wall[0] - 1][rand_wall[1]] == FLOOR and \
                         self.labyrinth[rand_wall[0] + 1][rand_wall[1]] == EMPTY:
 
                     # update walls and skip other steps
@@ -229,3 +240,20 @@ class Labyrinth:
 
         self.__mark_remaining_walls()
         self.__set_exit()
+
+
+    def __cells_types(self) -> List[str]:
+        """
+        Returns list containing type of cell f.e. cell at position [5, 3] should be wall_right
+        :return:
+        """
+        types = []
+        for row in range(0, self.labyrinth_height):
+            for col in range(0, self.labyrinth_width):
+                if self.labyrinth[row][col] == FLOOR:
+                    pass
+                elif self.labyrinth[row][col] == WALL:
+                    pass
+
+
+        return types
