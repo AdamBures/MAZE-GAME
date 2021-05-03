@@ -23,6 +23,13 @@ EMPTY = 'U'
 
 ROW_MOVE = [0, 1, -1, 0]
 COL_MOVE = [-1, 0, 0, 1]
+ALL_ROW_MOVE = ROW_MOVE[:] + [-1, 1, 1, -1]
+ALL_COL_MOVE = COL_MOVE[:] + [-1, 1, -1, 1]
+
+# alike linux permissions, see https://www.pluralsight.com/blog/it-ops/linux-file-permissions
+# their position cannot be changed!
+# from left to right, they mean -> previous column, lower row, upper row, next column
+ADJACENT_WALLS = (4, 2, 1, 8)
 
 
 class Labyrinth:
@@ -43,6 +50,9 @@ class Labyrinth:
         else:
             self.__generate_maze()
 
+        self.adjacent_walls = self.__linux_cells_types()
+        self.visible_cells = self.__init_visible_cells()
+
     def __getitem__(self, item: int):
         """
         Makes instance of this class subscriptable.
@@ -53,6 +63,17 @@ class Labyrinth:
 
     def __len__(self):
         return len(self.labyrinth)
+
+
+    def __init_visible_cells(self) -> List[List[int]]:
+        visible_cells = []
+        for _ in range(0, self.labyrinth_width):
+            row = []
+            for _ in range(0, self.labyrinth_height):
+                row.append(0)
+            visible_cells.append(row)
+
+        return visible_cells
 
     def __init_maze(self) -> None:
         """
@@ -164,8 +185,8 @@ class Labyrinth:
         for row in range(0, self.labyrinth_height):
             if self.labyrinth[row][1] == FLOOR:
                 possible_exit.append([row, 0])
-            if self.labyrinth[self.labyrinth_width - 1][row] == FLOOR:
-                possible_exit.append([self.labyrinth_width - 1][row])
+            if self.labyrinth[row][self.labyrinth_width - 1] == FLOOR:
+                possible_exit.append([row][self.labyrinth_width - 1])
 
         exit_row, exit_col = choice(possible_exit)
         self.labyrinth[exit_row][exit_col] = EXIT
@@ -242,18 +263,26 @@ class Labyrinth:
         self.__set_exit()
 
 
-    def __cells_types(self) -> List[str]:
+    def __linux_cells_types(self) -> List[List[str]]:
         """
-        Returns list containing type of cell f.e. cell at position [5, 3] should be wall_right
-        :return:
+        Each cell contains specific number characterizing how many and where are its adjacent walls
+        :return: List containing all adjacent walls which can be accessed in the same way as cell in labyrinth
         """
-        types = []
+        labyrinth_walls = []
         for row in range(0, self.labyrinth_height):
+            row_walls = []
             for col in range(0, self.labyrinth_width):
-                if self.labyrinth[row][col] == FLOOR:
-                    pass
-                elif self.labyrinth[row][col] == WALL:
-                    pass
+                adjacency = 0
+                for i in range(0, 4):
+                    if 0 <= row + ROW_MOVE[i] < self.labyrinth_height and 0 <= col + COL_MOVE[i] < self.labyrinth_width:
+                        if self.labyrinth[row + ROW_MOVE[i]][col + COL_MOVE[i]] == WALL:
+                            adjacency += ADJACENT_WALLS[i]
+
+                row_walls.append(Labyrinth.__cells_types(adjacency))
+            labyrinth_walls.append(row_walls)
+
+
+        return labyrinth_walls
 
 
         return types

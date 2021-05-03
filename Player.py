@@ -2,11 +2,6 @@ from typing import Union, List, Dict, Tuple, Optional
 
 import Labyrinth
 
-ROW_MOVE = [0, 0, -1, 1]
-COL_MOVE = [1, -1, 0, 0]
-ALL_ROW_MOVE = ROW_MOVE[:] + [-1, 1, 1, -1]
-ALL_COL_MOVE = COL_MOVE[:] + [-1, 1, -1, 1]
-
 
 class Player:
 
@@ -16,12 +11,13 @@ class Player:
         self.__col_position = col_position
         self.__previous_row_position = None
         self.__previous_col_position = None
-        self.__visible = []
 
         if row_position is None or col_position is None:
             self.__get_random_player_position()
 
-        self.__add_visible()
+        self.__labyrinth.visible_cells[self.__row_position][self.__col_position] = 1
+        self.__update_visible()
+
 
     @staticmethod
     def find_player_position(labyrinth: Labyrinth) -> Tuple[int, int]:
@@ -53,23 +49,16 @@ class Player:
         # todo: handle exception, if there is no field holding 'X' then something is wrong
         return -1, -1
 
-    def __add_visible(self) -> None:
+    def __update_visible(self) -> None:
         """
         Add position of the cells, player is currently seeing, to visible list
         :return: None
         """
-        for i in range(0, 7):
-            visible_row = self.__row_position + ALL_ROW_MOVE[i]
-            visible_col = self.__col_position + ALL_COL_MOVE[i]
-            if [visible_row, visible_col] not in self.__visible:
-                self.__visible.append([visible_row, visible_col])
+        for i in range(0, 8):
+            visible_row = self.__row_position + Labyrinth.ALL_ROW_MOVE[i]
+            visible_col = self.__col_position + Labyrinth.ALL_COL_MOVE[i]
+            self.__labyrinth.visible_cells[visible_row][visible_col] = 1
 
-    def get_visible(self) -> List[List[int]]:
-        """
-        Returns fields that player has been to and one field to each direction around them
-        :return: List containing position of visible fields
-        """
-        return self.__visible
 
     def __get_random_player_position(self) -> Tuple[int, int]:
         """
@@ -124,7 +113,7 @@ class Player:
                     self.__row_position += add_row
                     self.__col_position += add_col
 
-                    self.__add_visible()
+                    self.__update_visible()
 
             # todo: what happens when player steps on exit (field 'X')?
 
@@ -164,8 +153,8 @@ class Player:
             current_col = col_queue.pop(0)
 
             for i in range(0, 4):
-                next_row = current_row + ROW_MOVE[i]
-                next_col = current_col + COL_MOVE[i]
+                next_row = current_row + Labyrinth.ROW_MOVE[i]
+                next_col = current_col + Labyrinth.COL_MOVE[i]
 
                 if self.__labyrinth[next_row][next_col] == "#":
                     continue
