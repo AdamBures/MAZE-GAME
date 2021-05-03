@@ -1,5 +1,5 @@
 from Const import *
-from Labyrinth import WALL, FLOOR, START, EXIT
+from Labyrinth import WALL, CELL, START, EXIT
 
 # blk stands for block
 # the height of each of the blocks is supposed to be the same as their width
@@ -30,11 +30,10 @@ X_BLK_END = X_BLK_START + BLK_SIZE
 Y_BLK_END = Y_BLK_START + BLK_SIZE
 
 
-def draw_labyrinth() -> None:
+def draw_labyrinth():
     """
-    Graphic design for the labyrinth walls, cells, start and exit block
-    draws the whole labyrinth...
-    :return: None
+    todo: fill the f***ing docstring please xd
+    :return:
     """
     # blocks are being drawn in rows, not columns
     for i in range(len(LABYRINTH[0])):
@@ -50,7 +49,7 @@ def draw_labyrinth() -> None:
             if LABYRINTH[i][j] == WALL:
                 DISPLAY_SURFACE.blit(im_Wall, (X_COORDS, Y_COORDS))
             # road
-            if LABYRINTH[i][j] == FLOOR:
+            if LABYRINTH[i][j] == CELL:
                 DISPLAY_SURFACE.blit(im_Floor, (X_COORDS, Y_COORDS))
             # start (player spawn) and the end
             if LABYRINTH[i][j] == START:
@@ -75,7 +74,7 @@ def draw_menu_btn() -> pygame.Rect:
 
 def draw_score() -> None:
     """
-    Draw score and number
+    Draw score and number.
     :return: None
     """
     score_menu = SCORE_FONT.render("Score", True, WHITE)
@@ -90,7 +89,7 @@ def draw_score() -> None:
 
 def current_position_vis() -> None:
     """
-    Show current player position while in the game
+    Show current player position while in game
     the first rect creation is to overwrite the previous c_position_rect
     :return: None
     """
@@ -104,15 +103,25 @@ def current_position_vis() -> None:
     return c_position_rect
 
 
-def player_pos_change() -> None:
+def player_pos_change():
     """
-    Pos_y and pos_x holds the position of block on which player stands
-    real_pos_x and real_pos_y transforms the player position to real coordinates for drawing the image of player
-    draw_labyrinth deletes the old images of player in labyrinth from previous position
-    :return: Image of player on screen
+    todo: fill the f***ing docstring please xd - (not)filled
+    :return:
     """
     pos_y, pos_x = PLAYER.get_current_position()
+    prev_pos_y, prev_pos_x = PLAYER.get_previous_position()
+    if prev_pos_y is not None:
+        real_prev_pos_x = X_BLK_START + (BLK_SIZE * prev_pos_x)
+        real_prev_pos_y = Y_BLK_START + (BLK_SIZE * prev_pos_y)
+        if LABYRINTH[prev_pos_y][prev_pos_x] == CELL:
+            DISPLAY_SURFACE.blit(im_Floor, (real_prev_pos_x, real_prev_pos_y))
+        if LABYRINTH[prev_pos_y][prev_pos_x] == START:
+            DISPLAY_SURFACE.blit(im_start, (real_prev_pos_x, real_prev_pos_y))
+        if LABYRINTH[prev_pos_y][prev_pos_x] == EXIT:
+            DISPLAY_SURFACE.blit(im_end, (real_prev_pos_x, real_prev_pos_y))
+
     real_pos_x = X_BLK_START + (BLK_SIZE * pos_x)
     real_pos_y = Y_BLK_START + (BLK_SIZE * pos_y)
-    draw_labyrinth()
+
     DISPLAY_SURFACE.blit(imp_player, (real_pos_x, real_pos_y))
+    return
