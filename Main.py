@@ -61,11 +61,11 @@ def show_menu():
 
 def run_game():
     global mouse_coordinates
-    # draw labyrinth (???) ->
     DISPLAY_SURFACE.fill(BG_COLOR)
     draw_labyrinth()
+    player_pos_change()
+    current_position_vis()
     btn_menu_rect = draw_menu_btn()
-
     # main loop
     while True:
         draw_score()
@@ -103,6 +103,7 @@ def run_game():
                 elif event.key == K_RIGHT or event.key == K_d:
                     PLAYER.change_position(0, 1)
                     current_position_vis()
+
                 player_pos_change()
 
         # todo: if position of player has changed, redraw his origin and forward position
