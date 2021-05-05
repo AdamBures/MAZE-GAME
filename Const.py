@@ -23,7 +23,7 @@ WINDOW_WIDTH = 640
 WINDOW_HEIGHT = 480
 DISPLAY_SURFACE = pygame.display.set_mode((WINDOW_WIDTH, WINDOW_HEIGHT))
 
-LABYRINTH = Labyrinth(len(MAP1), len(MAP1[0]))
+LABYRINTH = Labyrinth(10, 10)
 PLAYER = Player(LABYRINTH)
 
 WHITE = (255, 255, 255)
@@ -44,11 +44,13 @@ FPS = 30
 FPS_CLOCK = pygame.time.Clock()
 
 # here you can change the type of tile for floor/wall,..
-im_Wall = pygame.image.load(r'Wall_Brick.png')
-im_Floor = pygame.image.load(r'floor_1.png')
-im_end = pygame.image.load(r'floor_ladder.png')
-im_start = pygame.image.load(r'doors_start.png')
+image_end = pygame.image.load('PicturesFolder/floor_ladder.png')
+image_floor = pygame.image.load("PicturesFolder/floors/floor.png")
+image_door = pygame.image.load("PicturesFolder/doors/door.png")
+image_player = pygame.image.load("PicturesFolder/players/goblins/goblin48.png")
 
-WALK_RIGHT = [pygame.image.load(r'Models\Imp\R0.png'), pygame.image.load(r'Models\Imp\R1.png'), pygame.image.load(r'Models\Imp\R2.png'), pygame.image.load(r'Models\Imp\R3.png')]
-WALK_LEFT = [pygame.image.load(r'Models\Imp\L0.png'), pygame.image.load(r'Models\Imp\L1.png'), pygame.image.load(r'Models\Imp\L2.png'), pygame.image.load(r'Models\Imp\L3.png')]
-imp_player = pygame.image.load(r'Models\Imp\S0.png')
+# todo: this picture cannot be used due to its small size -> need 48x48 pixels for sprite now
+WALK_RIGHT = [pygame.image.load('PicturesFolder/Imp/R0.png'), pygame.image.load('PicturesFolder/Imp/R1.png'),
+              pygame.image.load('PicturesFolder/Imp/R2.png'), pygame.image.load('PicturesFolder/Imp/R3.png')]
+WALK_LEFT = [pygame.image.load('PicturesFolder/Imp/L0.png'), pygame.image.load('PicturesFolder/Imp/L1.png'),
+             pygame.image.load('PicturesFolder/Imp/L2.png'), pygame.image.load('PicturesFolder/Imp/L3.png')]

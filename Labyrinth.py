@@ -285,4 +285,29 @@ class Labyrinth:
         return labyrinth_walls
 
 
-        return types
+    @staticmethod
+    def __cells_types(key: int) -> str:
+        """
+        Return name of a wall in labyrinth
+        :param key: Type of cell determined by adjust linux permission system
+        :return: Name of a wall
+        """
+        switcher = {
+            1: "wall_top",
+            2: "wall_bottom",
+            3: "wall_bottom_top",
+            4: "wall_left",
+            5: "wall_left_top",
+            6: "wall_left_bottom",
+            7: "wall_left_bottom_top",
+            8: "wall_right",
+            9: "wall_right_top",
+            10: "wall_bottom_right",
+            11: "wall_bottom_right_top",
+            12: "wall_left_right",
+            13: "wall_left_right_top",
+            14: "wall_left_bottom_right",
+            15: "wall_left_bottom_right_top"
+        }
+
+        return switcher.get(key)

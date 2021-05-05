@@ -1,5 +1,7 @@
-from Visualisation import *
 from pygame.locals import *
+
+from Visualisation import *
+
 pygame.init()
 
 mouse_coordinates = (0, 0)
@@ -106,7 +108,6 @@ def run_game():
 
                 player_pos_change()
 
-        # todo: if position of player has changed, redraw his origin and forward position
         pygame.display.update()
         FPS_CLOCK.tick(FPS)
 
