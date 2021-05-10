@@ -105,6 +105,7 @@ def player_pos_change() -> None:
     draw_labyrinth deletes the old images of player in labyrinth from previous position
     :return: Image of player on screen
     """
+    move = "right"
     pos_y, pos_x = PLAYER.get_current_position()
     prev_pos_y, prev_pos_x = PLAYER.get_previous_position()
     if prev_pos_y is not None:
@@ -119,5 +120,10 @@ def player_pos_change() -> None:
 
     real_pos_x = X_BLK_START + (BLK_SIZE * pos_x)
     real_pos_y = Y_BLK_START + (BLK_SIZE * pos_y)
-
-    DISPLAY_SURFACE.blit(image_player, (real_pos_x, real_pos_y))
+    if prev_pos_x != None:
+        if prev_pos_x > pos_x:
+            move = "left"
+    if move == "right":
+        DISPLAY_SURFACE.blit(image_player, (real_pos_x,real_pos_y))
+    elif move == "left":
+        DISPLAY_SURFACE.blit(image_player_left, (real_pos_x,real_pos_y))
