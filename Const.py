@@ -1,4 +1,5 @@
 import pygame
+
 from Labyrinth import Labyrinth
 from Player import Player
 
@@ -54,3 +55,9 @@ WALK_RIGHT = [pygame.image.load('PicturesFolder/Imp/R0.png'), pygame.image.load(
               pygame.image.load('PicturesFolder/Imp/R2.png'), pygame.image.load('PicturesFolder/Imp/R3.png')]
 WALK_LEFT = [pygame.image.load('PicturesFolder/Imp/L0.png'), pygame.image.load('PicturesFolder/Imp/L1.png'),
              pygame.image.load('PicturesFolder/Imp/L2.png'), pygame.image.load('PicturesFolder/Imp/L3.png')]
+
+
+def restart():
+    global LABYRINTH, PLAYER
+    LABYRINTH = Labyrinth(10, 10)
+    PLAYER = Player(LABYRINTH)

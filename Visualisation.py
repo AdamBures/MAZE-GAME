@@ -1,4 +1,8 @@
-from Const import *
+import pygame
+
+import Const
+from Const import WHITE, WINDOW_HEIGHT, image_end, image_door, image_floor, image_player, BTN_FONT2, SCORE_FONT, \
+    NUMBER, BLACK
 from Labyrinth import WALL, FLOOR, START, EXIT
 
 # blk stands for block
@@ -10,10 +14,10 @@ X_BLK_START = 80
 Y_BLK_START = 0
 
 # number of blocks
-BLK_NUM = len(LABYRINTH[0])
+BLK_NUM = len(Const.LABYRINTH[0])
 
 # block size
-BLK_SIZE = WINDOW_HEIGHT / BLK_NUM
+BLK_SIZE = Const.WINDOW_HEIGHT / BLK_NUM
 
 # resizing images (tiles)
 RESIZE_IMG = BLK_SIZE / 16
@@ -32,8 +36,8 @@ def draw_labyrinth() -> None:
     :return: None
     """
     # blocks are being drawn in rows, not columns
-    for i in range(len(LABYRINTH)):
-        for j in range(len(LABYRINTH[0])):
+    for i in range(len(Const.LABYRINTH)):
+        for j in range(len(Const.LABYRINTH[0])):
             rect = pygame.Rect(X_BLK_START + (BLK_SIZE * j), Y_BLK_START + (BLK_SIZE * i), BLK_SIZE, BLK_SIZE)
 
             # X_COORDS is X coordinate of left side of the particular block
@@ -41,16 +45,16 @@ def draw_labyrinth() -> None:
             X_COORDS = X_BLK_START + (BLK_SIZE * j)
             Y_COORDS = Y_BLK_START + (BLK_SIZE * i)
 
-            if LABYRINTH[i][j] == WALL:
+            if Const.LABYRINTH[i][j] == WALL:
                 image_wall = pygame.image.load(
-                    "PicturesFolder/walls/walls48/" + str(LABYRINTH.adjacent_walls[i][j] + ".png"))
-                DISPLAY_SURFACE.blit(image_wall, (X_COORDS, Y_COORDS))
-            if LABYRINTH[i][j] == FLOOR:
-                DISPLAY_SURFACE.blit(image_floor, (X_COORDS, Y_COORDS))
-            if LABYRINTH[i][j] == START:
-                DISPLAY_SURFACE.blit(image_door, (X_COORDS, Y_COORDS))
-            if LABYRINTH[i][j] == EXIT:
-                DISPLAY_SURFACE.blit(image_end, (X_COORDS, Y_COORDS))
+                    "PicturesFolder/walls/walls48/" + str(Const.LABYRINTH.adjacent_walls[i][j] + ".png"))
+                Const.DISPLAY_SURFACE.blit(image_wall, (X_COORDS, Y_COORDS))
+            if Const.LABYRINTH[i][j] == FLOOR:
+                Const.DISPLAY_SURFACE.blit(image_floor, (X_COORDS, Y_COORDS))
+            if Const.LABYRINTH[i][j] == START:
+                Const.DISPLAY_SURFACE.blit(image_door, (X_COORDS, Y_COORDS))
+            if Const.LABYRINTH[i][j] == EXIT:
+                Const.DISPLAY_SURFACE.blit(image_end, (X_COORDS, Y_COORDS))
             pygame.display.update()
 
 
@@ -62,7 +66,7 @@ def draw_menu_btn() -> pygame.Rect:
     btn_menu = BTN_FONT2.render("Menu", True, WHITE)
     btn_menu_rect = btn_menu.get_rect()
     btn_menu_rect.center = (40, WINDOW_HEIGHT / 2)
-    DISPLAY_SURFACE.blit(btn_menu, btn_menu_rect)
+    Const.DISPLAY_SURFACE.blit(btn_menu, btn_menu_rect)
 
     return btn_menu_rect
 
@@ -75,11 +79,11 @@ def draw_score() -> None:
     score_menu = SCORE_FONT.render("Score", True, WHITE)
     score_rect = score_menu.get_rect()
     score_rect.center = (40, (WINDOW_HEIGHT / 2) + 50)
-    DISPLAY_SURFACE.blit(score_menu, score_rect)
+    Const.DISPLAY_SURFACE.blit(score_menu, score_rect)
     number_menu = SCORE_FONT.render(f"{NUMBER}", True, WHITE)
     number_rect = number_menu.get_rect()
     number_rect.center = (40, (WINDOW_HEIGHT / 2) + 80)
-    DISPLAY_SURFACE.blit(number_menu, number_rect)
+    Const.DISPLAY_SURFACE.blit(number_menu, number_rect)
 
 
 def current_position_vis() -> None:
@@ -88,13 +92,13 @@ def current_position_vis() -> None:
     the first rect creation is to overwrite the previous c_position_rect
     :return: None
     """
-    pygame.draw.rect(DISPLAY_SURFACE, BLACK, (0, 0, 80, 80))
-    position = PLAYER.get_current_position()
+    pygame.draw.rect(Const.DISPLAY_SURFACE, BLACK, (0, 0, 80, 80))
+    position = Const.PLAYER.get_current_position()
     position = str(position)
     c_position = BTN_FONT2.render(position, True, WHITE)
     c_position_rect = c_position.get_rect()
     c_position_rect.center = (40, 40)
-    DISPLAY_SURFACE.blit(c_position, c_position_rect)
+    Const.DISPLAY_SURFACE.blit(c_position, c_position_rect)
     return c_position_rect
 
 
@@ -105,19 +109,19 @@ def player_pos_change() -> None:
     draw_labyrinth deletes the old images of player in labyrinth from previous position
     :return: Image of player on screen
     """
-    pos_y, pos_x = PLAYER.get_current_position()
-    prev_pos_y, prev_pos_x = PLAYER.get_previous_position()
+    pos_y, pos_x = Const.PLAYER.get_current_position()
+    prev_pos_y, prev_pos_x = Const.PLAYER.get_previous_position()
     if prev_pos_y is not None:
         real_prev_pos_x = X_BLK_START + (BLK_SIZE * prev_pos_x)
         real_prev_pos_y = Y_BLK_START + (BLK_SIZE * prev_pos_y)
-        if LABYRINTH[prev_pos_y][prev_pos_x] == FLOOR:
-            DISPLAY_SURFACE.blit(image_floor, (real_prev_pos_x, real_prev_pos_y))
-        if LABYRINTH[prev_pos_y][prev_pos_x] == START:
-            DISPLAY_SURFACE.blit(image_door, (real_prev_pos_x, real_prev_pos_y))
-        if LABYRINTH[prev_pos_y][prev_pos_x] == EXIT:
-            DISPLAY_SURFACE.blit(image_end, (real_prev_pos_x, real_prev_pos_y))
+        if Const.LABYRINTH[prev_pos_y][prev_pos_x] == FLOOR:
+            Const.DISPLAY_SURFACE.blit(image_floor, (real_prev_pos_x, real_prev_pos_y))
+        if Const.LABYRINTH[prev_pos_y][prev_pos_x] == START:
+            Const.DISPLAY_SURFACE.blit(image_door, (real_prev_pos_x, real_prev_pos_y))
+        if Const.LABYRINTH[prev_pos_y][prev_pos_x] == EXIT:
+            Const.DISPLAY_SURFACE.blit(image_end, (real_prev_pos_x, real_prev_pos_y))
 
     real_pos_x = X_BLK_START + (BLK_SIZE * pos_x)
     real_pos_y = Y_BLK_START + (BLK_SIZE * pos_y)
 
-    DISPLAY_SURFACE.blit(image_player, (real_pos_x, real_pos_y))
+    Const.DISPLAY_SURFACE.blit(image_player, (real_pos_x, real_pos_y))

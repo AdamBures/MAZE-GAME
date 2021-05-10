@@ -18,7 +18,6 @@ class Player:
         self.__labyrinth.visible_cells[self.__row_position][self.__col_position] = 1
         self.__update_visible()
 
-
     @staticmethod
     def find_player_position(labyrinth: Labyrinth) -> Tuple[int, int]:
         """
@@ -58,7 +57,6 @@ class Player:
             visible_row = self.__row_position + Labyrinth.ALL_ROW_MOVE[i]
             visible_col = self.__col_position + Labyrinth.ALL_COL_MOVE[i]
             self.__labyrinth.visible_cells[visible_row][visible_col] = 1
-
 
     def __get_random_player_position(self) -> Tuple[int, int]:
         """
@@ -108,7 +106,8 @@ class Player:
         next_col = self.__col_position + add_col
         if len(self.__labyrinth[0]) > next_row >= 0:
             if len(self.__labyrinth) > next_col >= 0:
-                if self.__labyrinth[next_row][next_col] == '_' or self.__labyrinth[next_row][next_col] == 'S':
+                if self.__labyrinth[next_row][next_col] == '_' or self.__labyrinth[next_row][next_col] == 'S' or \
+                        self.__labyrinth[next_row][next_col] == "X":
                     # change player's position
                     self.__row_position += add_row
                     self.__col_position += add_col

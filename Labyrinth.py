@@ -44,9 +44,11 @@ class Labyrinth:
         """
         self.labyrinth_width = labyrinth_width
         self.labyrinth_height = labyrinth_height
+        self.__exit_position = None
 
         if labyrinth is not None:
             self.labyrinth = labyrinth
+            # todo: self.exit_position need to be set
         else:
             self.__generate_maze()
 
@@ -64,6 +66,8 @@ class Labyrinth:
     def __len__(self):
         return len(self.labyrinth)
 
+    def __del__(self):
+        self.labyrinth = None
 
     def __init_visible_cells(self) -> List[List[int]]:
         visible_cells = []
@@ -190,6 +194,7 @@ class Labyrinth:
 
         exit_row, exit_col = choice(possible_exit)
         self.labyrinth[exit_row][exit_col] = EXIT
+        self.__exit_position = exit_row, exit_col
 
     def __generate_maze(self) -> None:
         """
@@ -262,7 +267,6 @@ class Labyrinth:
         self.__mark_remaining_walls()
         self.__set_exit()
 
-
     def __linux_cells_types(self) -> List[List[str]]:
         """
         Each cell contains specific number characterizing how many and where are its adjacent walls
@@ -281,9 +285,7 @@ class Labyrinth:
                 row_walls.append(Labyrinth.__cells_types(adjacency))
             labyrinth_walls.append(row_walls)
 
-
         return labyrinth_walls
-
 
     @staticmethod
     def __cells_types(key: int) -> str:
@@ -311,3 +313,6 @@ class Labyrinth:
         }
 
         return switcher.get(key)
+
+    def get_exit_position(self):
+        return self.__exit_position
