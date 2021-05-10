@@ -127,13 +127,13 @@ def run_game():
 def main():
     while True:
         show_menu()
-        maze_counter = MAZE_NUMBER
+        maze_counter = 0
         while True:
             run_game()
             maze_counter += 1
             Const.restart()
 
-            if maze_counter == 2:
+            if maze_counter == MAZE_NUMBER:
                 break
 
 
