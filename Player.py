@@ -108,7 +108,7 @@ class Player:
         next_col = self.__col_position + add_col
         if len(self.__labyrinth[0]) > next_row >= 0:
             if len(self.__labyrinth) > next_col >= 0:
-                if self.__labyrinth[next_row][next_col] == '_' or self.__labyrinth[next_row][next_col] == 'S':
+                if self.__labyrinth[next_row][next_col] == '_' or self.__labyrinth[next_row][next_col] == 'S' or self.__labyrinth[next_row][next_col] == 'X':
                     # change player's position
                     self.__row_position += add_row
                     self.__col_position += add_col

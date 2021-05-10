@@ -33,6 +33,7 @@ GREEN = (0, 255, 0)
 BROWN = (255, 97, 3)
 BLUE = (0, 0, 255)
 BLACK = (0, 0, 0)
+GREY = (128, 128, 128)
 
 TITLE_FONT = pygame.font.Font('freesansbold.ttf', 80)
 BTN_FONT = pygame.font.Font('freesansbold.ttf', 40)

@@ -120,4 +120,24 @@ def player_pos_change() -> None:
     real_pos_x = X_BLK_START + (BLK_SIZE * pos_x)
     real_pos_y = Y_BLK_START + (BLK_SIZE * pos_y)
 
+
+    #visibility_map = LABYRINTH.visible_cells
+
+
+    for i in range(len(LABYRINTH.visible_cells)):
+        for j in range(len(LABYRINTH.visible_cells[0])):
+            if LABYRINTH.visible_cells[i][j] == 0:
+                rect = pygame.Rect(X_BLK_START + (BLK_SIZE * j), Y_BLK_START + (BLK_SIZE * i), BLK_SIZE, BLK_SIZE)
+                pygame.draw.rect(DISPLAY_SURFACE, GREY, rect)
+            if LABYRINTH.visible_cells[i][j] == 1:
+                if LABYRINTH[i][j] == FLOOR:
+                    DISPLAY_SURFACE.blit(image_floor, (X_BLK_START + (BLK_SIZE * j), Y_BLK_START + (BLK_SIZE * i)))
+                if LABYRINTH[i][j] == START:
+                    DISPLAY_SURFACE.blit(image_door, (X_BLK_START + (BLK_SIZE * j), Y_BLK_START + (BLK_SIZE * i)))
+                if LABYRINTH[i][j] == WALL:
+                    image_wall = pygame.image.load(
+                        "PicturesFolder/walls/walls48/" + str(LABYRINTH.adjacent_walls[i][j] + ".png"))
+                    DISPLAY_SURFACE.blit(image_wall, (X_BLK_START + (BLK_SIZE * j), Y_BLK_START + (BLK_SIZE * i)))
+                if LABYRINTH[i][j] == EXIT:
+                    DISPLAY_SURFACE.blit(image_end, (X_BLK_START + (BLK_SIZE * j), Y_BLK_START + (BLK_SIZE * i)))
     DISPLAY_SURFACE.blit(image_player, (real_pos_x, real_pos_y))
