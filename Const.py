@@ -34,6 +34,7 @@ GREEN = (0, 255, 0)
 BROWN = (255, 97, 3)
 BLUE = (0, 0, 255)
 BLACK = (0, 0, 0)
+GREY = (128, 128, 128)
 
 TITLE_FONT = pygame.font.Font('freesansbold.ttf', 80)
 BTN_FONT = pygame.font.Font('freesansbold.ttf', 40)
@@ -49,12 +50,7 @@ image_end = pygame.image.load('PicturesFolder/floor_ladder.png')
 image_floor = pygame.image.load("PicturesFolder/floors/floor.png")
 image_door = pygame.image.load("PicturesFolder/doors/door.png")
 image_player = pygame.image.load("PicturesFolder/players/goblins/goblin48.png")
-
-# todo: this picture cannot be used due to its small size -> need 48x48 pixels for sprite now
-WALK_RIGHT = [pygame.image.load('PicturesFolder/Imp/R0.png'), pygame.image.load('PicturesFolder/Imp/R1.png'),
-              pygame.image.load('PicturesFolder/Imp/R2.png'), pygame.image.load('PicturesFolder/Imp/R3.png')]
-WALK_LEFT = [pygame.image.load('PicturesFolder/Imp/L0.png'), pygame.image.load('PicturesFolder/Imp/L1.png'),
-             pygame.image.load('PicturesFolder/Imp/L2.png'), pygame.image.load('PicturesFolder/Imp/L3.png')]
+image_player_left = pygame.transform.flip(image_player, True, False)
 
 
 def restart():

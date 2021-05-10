@@ -2,7 +2,7 @@ import pygame
 
 import Const
 from Const import WHITE, WINDOW_HEIGHT, image_end, image_door, image_floor, image_player, BTN_FONT2, SCORE_FONT, \
-    NUMBER, BLACK
+    NUMBER, BLACK, GREY, image_player_left
 from Labyrinth import WALL, FLOOR, START, EXIT
 
 # blk stands for block
@@ -38,7 +38,6 @@ def draw_labyrinth() -> None:
     # blocks are being drawn in rows, not columns
     for i in range(len(Const.LABYRINTH)):
         for j in range(len(Const.LABYRINTH[0])):
-            rect = pygame.Rect(X_BLK_START + (BLK_SIZE * j), Y_BLK_START + (BLK_SIZE * i), BLK_SIZE, BLK_SIZE)
 
             # X_COORDS is X coordinate of left side of the particular block
             # Y_COORDS is Y coordinate of top side of the particular block
@@ -109,6 +108,8 @@ def player_pos_change() -> None:
     draw_labyrinth deletes the old images of player in labyrinth from previous position
     :return: Image of player on screen
     """
+    move = "right"
+
     pos_y, pos_x = Const.PLAYER.get_current_position()
     prev_pos_y, prev_pos_x = Const.PLAYER.get_previous_position()
     if prev_pos_y is not None:
@@ -125,3 +126,28 @@ def player_pos_change() -> None:
     real_pos_y = Y_BLK_START + (BLK_SIZE * pos_y)
 
     Const.DISPLAY_SURFACE.blit(image_player, (real_pos_x, real_pos_y))
+    for i in range(len(Const.LABYRINTH.visible_cells)):
+        for j in range(len(Const.LABYRINTH.visible_cells[0])):
+            if Const.LABYRINTH.visible_cells[i][j] == 0:
+                rect = pygame.Rect(X_BLK_START + (BLK_SIZE * j), Y_BLK_START + (BLK_SIZE * i), BLK_SIZE, BLK_SIZE)
+                pygame.draw.rect(Const.DISPLAY_SURFACE, GREY, rect)
+            if Const.LABYRINTH.visible_cells[i][j] == 1:
+                if Const.LABYRINTH[i][j] == FLOOR:
+                    Const.DISPLAY_SURFACE.blit(image_floor, (X_BLK_START + (BLK_SIZE * j),
+                                                             Y_BLK_START + (BLK_SIZE * i)))
+                if Const.LABYRINTH[i][j] == START:
+                    Const.DISPLAY_SURFACE.blit(image_door, (X_BLK_START + (BLK_SIZE * j), Y_BLK_START + (BLK_SIZE * i)))
+                if Const.LABYRINTH[i][j] == WALL:
+                    image_wall = pygame.image.load(
+                        "PicturesFolder/walls/walls48/" + str(Const.LABYRINTH.adjacent_walls[i][j] + ".png"))
+                    Const.DISPLAY_SURFACE.blit(image_wall, (X_BLK_START + (BLK_SIZE * j), Y_BLK_START + (BLK_SIZE * i)))
+                if Const.LABYRINTH[i][j] == EXIT:
+                    Const.DISPLAY_SURFACE.blit(image_end, (X_BLK_START + (BLK_SIZE * j), Y_BLK_START + (BLK_SIZE * i)))
+
+    if prev_pos_x is not None:
+        if prev_pos_x > pos_x:
+            move = "left"
+    if move == "right":
+        Const.DISPLAY_SURFACE.blit(image_player, (real_pos_x, real_pos_y))
+    elif move == "left":
+        Const.DISPLAY_SURFACE.blit(image_player_left, (real_pos_x, real_pos_y))
