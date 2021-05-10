@@ -3,7 +3,7 @@ from pygame.locals import *
 
 import Const
 import Visualisation
-from Const import TITLE_FONT, WHITE, WINDOW_WIDTH, WINDOW_HEIGHT, BTN_FONT, BG_COLOR, FPS, FPS_CLOCK
+from Const import TITLE_FONT, WHITE, WINDOW_WIDTH, WINDOW_HEIGHT, BTN_FONT, BG_COLOR, FPS, FPS_CLOCK, MAZE_NUMBER
 
 pygame.init()
 
@@ -74,6 +74,9 @@ def run_game():
     btn_menu_rect = Visualisation.draw_menu_btn()
     # main loop
     flag = True
+    for i in Const.LABYRINTH.labyrinth:
+        print(i)
+    print()
     while flag:
         Visualisation.draw_score()
         mouse_clicked = False
@@ -124,8 +127,14 @@ def run_game():
 def main():
     while True:
         show_menu()
-        run_game()
-        Const.restart()
+        maze_counter = MAZE_NUMBER
+        while True:
+            run_game()
+            maze_counter += 1
+            Const.restart()
+
+            if maze_counter == 2:
+                break
 
 
 if __name__ == '__main__':
