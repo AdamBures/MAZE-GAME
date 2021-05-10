@@ -199,6 +199,7 @@ class Labyrinth:
     def __generate_maze(self) -> None:
         """
         Generates random labyrinth with Randomized Prim's Algorithm
+        https://medium.com/analytics-vidhya/maze-generations-algorithms-and-visualizations-9f5e88a3ae37
         :return: None
         """
         # if the labyrinth includes some data, mostly walls or cells, then initialize it again to be empty labyrinth
