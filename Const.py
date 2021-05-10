@@ -54,7 +54,11 @@ image_player = pygame.image.load("PicturesFolder/players/goblins/goblin48.png")
 image_player_left = pygame.transform.flip(image_player, True, False)
 
 
-def restart():
+def restart() -> None:
+    """
+    Restart the game
+    :return: None
+    """
     global LABYRINTH, PLAYER
     LABYRINTH = Labyrinth(10, 10)
     PLAYER = Player(LABYRINTH)

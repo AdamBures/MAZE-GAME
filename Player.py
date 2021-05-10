@@ -40,13 +40,7 @@ class Player:
         :param labyrinth: 2d string list
         :return: Tuple containing row and col position
         """
-        for row in range(0, len(labyrinth)):
-            for col in range(0, len(labyrinth[0])):
-                if labyrinth[row][col] == Labyrinth.EXIT:
-                    return row, col
-
-        # todo: handle exception, if there is no field holding 'X' then something is wrong
-        return -1, -1
+        return labyrinth.get_exit_position()
 
     def __update_visible(self) -> None:
         """

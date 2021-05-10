@@ -70,6 +70,10 @@ class Labyrinth:
         self.labyrinth = None
 
     def __init_visible_cells(self) -> List[List[int]]:
+        """
+        Initialize list for cells that are visible to a player
+        :return: List row lists of 0 for invisible and 1 for visible
+        """
         visible_cells = []
         for _ in range(0, self.labyrinth_width):
             row = []
@@ -315,5 +319,5 @@ class Labyrinth:
 
         return switcher.get(key)
 
-    def get_exit_position(self):
+    def get_exit_position(self) -> Tuple[int, int]:
         return self.__exit_position
