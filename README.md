@@ -2,13 +2,23 @@
 
 ### `Const`:
 Includes several constants that are used in other files.
+```python
+import pygame
+from Labyrinth import Labyrinth
+from Player import Player
+
+
+def restart() -> None:
+    # Restarts the game
+    ...
+```
 
 ### `Labyrinth`:
 There is defined `class Labyrinth`
 ```python
-from typing import List, Tuple, Optional
 from random import random, choice, seed
 from time import time
+from typing import List, Tuple, Optional
 
 
 def __init__(self, labyrinth_height: int, labyrinth_width: int, 
@@ -23,6 +33,10 @@ def __getitem__(self, item: int):
     
 def __len__(self):
     # Returns len of the attr `labyrinth`
+    ...
+
+def __init_visible_cells(self) -> List[List[int]]:
+    # Initialize list for cells that are visible to a player
     ...
 
 def __init_maze(self) -> None:
@@ -59,11 +73,35 @@ def __set_exit(self) -> None:
 def __generate_maze(self) -> None:
     # Generates random labyrinth with Randomized Prim's Algorithm
     ...
+
+def __linux_cells_types(self) -> List[List[str]]:
+    # Creates a list containing specific number characterizing how many adjacent walls
+    # are around, and how many of them
+    # Uses something like linux privileges for counting
+    ...
+
+
+@staticmethod
+def __cells_types(key: int) -> str:
+    # Returns type of wall in the labyrinth
+    ...
+
+def get_exit_position(self) -> Tuple[int, int]:
+    # Returns exit position of the labyrinth
+    ...
 ```
 
 ### `Main`:
 Core of the whole game
 ```python
+import pygame
+import Const
+import Visualisation
+from pygame.locals import *
+from Const import TITLE_FONT, WHITE, WINDOW_WIDTH, WINDOW_HEIGHT, BTN_FONT, BG_COLOR, \
+    FPS, FPS_CLOCK, MAZE_NUMBER
+
+
 def terminate_window():
     # Closes the game
     ...
@@ -101,7 +139,7 @@ def find_exit_position(labyrinth: Labyrinth) -> Tuple[int, int]:
     # Finds exit position in labyrinth
     ...
 
-def __add_visible(self) -> List[List[int]]:
+def __update_visible(self) -> List[List[int]]:
     # Add position of the cells, player is currently seeing, to visible list
     ...
 
@@ -120,6 +158,10 @@ def get_current_position(self) -> Tuple[int, int]:
 
 def get_previous_position(self) -> Tuple[int, int]:
     # Returns previous position of a player
+    ...
+
+def change_position(self) -> Tuple[int, int]:
+    # Changes position of the player
     ...
 
 def __convert_position(self, row_position: int = None, col_position: int = None) -> int:
@@ -144,6 +186,13 @@ def next_position(self, labyrinth: List[List[str]], dest: int) -> List[int]:
 ### `Visualisation`:
 Displays the labyrinth to user
 ```python
+import pygame
+import Const
+from Const import WHITE, WINDOW_HEIGHT, image_end, image_door, image_floor, \
+    image_player, BTN_FONT2, SCORE_FONT, NUMBER, BLACK, GREY, image_player_left
+from Labyrinth import WALL, FLOOR, START, EXIT
+
+
 def draw_labyrinth() -> None:
     # Draws background (labyrinth) to window surface
     ...
