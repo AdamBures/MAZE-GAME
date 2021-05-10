@@ -56,7 +56,9 @@ class Player:
         for i in range(0, 8):
             visible_row = self.__row_position + Labyrinth.ALL_ROW_MOVE[i]
             visible_col = self.__col_position + Labyrinth.ALL_COL_MOVE[i]
-            self.__labyrinth.visible_cells[visible_row][visible_col] = 1
+            if 0 <= visible_row < self.__labyrinth.labyrinth_height and \
+                    0 <= visible_col < self.__labyrinth.labyrinth_width:
+                self.__labyrinth.visible_cells[visible_row][visible_col] = 1
 
     def __get_random_player_position(self) -> Tuple[int, int]:
         """
