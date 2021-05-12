@@ -7,6 +7,8 @@ from Const import TITLE_FONT, WHITE, WINDOW_WIDTH, WINDOW_HEIGHT, BTN_FONT, BG_C
 
 pygame.init()
 
+pygame.display.set_caption("A(maze)ing Game")
+
 mouse_coordinates = (0, 0)
 
 
