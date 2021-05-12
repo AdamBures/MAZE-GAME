@@ -47,7 +47,7 @@ FPS = 30
 FPS_CLOCK = pygame.time.Clock()
 
 # here you can change the type of tile for floor/wall,..
-image_end = pygame.image.load('PicturesFolder/floor_ladder.png')
+image_end = pygame.image.load('PicturesFolder/ladder/ladder48.png')
 image_floor = pygame.image.load("PicturesFolder/floors/floor.png")
 image_door = pygame.image.load("PicturesFolder/doors/door.png")
 image_player = pygame.image.load("PicturesFolder/players/goblins/goblin48.png")

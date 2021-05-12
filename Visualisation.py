@@ -21,7 +21,6 @@ BLK_SIZE = Const.WINDOW_HEIGHT / BLK_NUM
 
 # resizing images (tiles)
 RESIZE_IMG = BLK_SIZE / 16
-image_end = pygame.transform.rotozoom(image_end, 0, RESIZE_IMG)
 
 # end of the block, depending on their row and column position
 # this one is for the end of the first block
