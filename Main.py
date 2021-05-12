@@ -168,9 +168,9 @@ def main():
             run_game()
             maze_counter += 1
             Const.restart()
-
             if maze_counter == MAZE_NUMBER:
-                break
+                end_screen()
+                continue
 
 
 if __name__ == '__main__':
