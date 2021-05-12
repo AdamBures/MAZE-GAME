@@ -19,7 +19,7 @@ MAP1 = [['#', '#', '#', '#', '#', '#', '#', '#', '#', '#'],
 
 ROW_MOVE = [0, 0, -1, 1]
 COL_MOVE = [1, -1, 0, 0]
-MAZE_NUMBER = 2
+MAZE_NUMBER = 5
 
 WINDOW_WIDTH = 640
 WINDOW_HEIGHT = 480
