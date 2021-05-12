@@ -42,6 +42,7 @@ TITLE_FONT = pygame.font.Font('freesansbold.ttf', 60)
 BTN_FONT = pygame.font.Font('freesansbold.ttf', 40)
 BTN_FONT2 = pygame.font.Font('freesansbold.ttf', 30)
 SCORE_FONT = pygame.font.Font('freesansbold.ttf', 25)
+END_FONT = pygame.font.Font('freesansbold.ttf', 35)
 
 NUMBER = 0
 FPS = 30
@@ -54,6 +55,7 @@ image_door = pygame.image.load("PicturesFolder/doors/door.png")
 image_player = pygame.image.load("PicturesFolder/players/goblins/goblin48.png")
 image_player_left = pygame.transform.flip(image_player, True, False)
 
+SECRET_IMAGE = pygame.image.load(r"PicturesFolder\secret image.jpg")
 
 def restart() -> None:
     """
