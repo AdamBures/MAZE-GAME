@@ -75,9 +75,6 @@ def run_game():
     btn_menu_rect = Visualisation.draw_menu_btn()
     # main loop
     flag = True
-    for i in Const.LABYRINTH.labyrinth:
-        print(i)
-    print()
     while flag:
         Visualisation.draw_score()
         mouse_clicked = False
