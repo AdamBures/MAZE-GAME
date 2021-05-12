@@ -1,4 +1,4 @@
-# MAZE-GAME
+# A(maze)ing Game
 
 ### `Const`:
 Includes several constants that are used in other files.

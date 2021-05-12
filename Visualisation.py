@@ -1,9 +1,11 @@
+from typing import Optional
+
 import pygame
 
 import Const
 from Const import WHITE, WINDOW_HEIGHT, image_end, image_door, image_floor, image_player, BTN_FONT2, SCORE_FONT, \
     NUMBER, BLACK, GREY, image_player_left
-from Labyrinth import WALL, FLOOR, START, EXIT
+from Labyrinth import WALL, FLOOR, START, EXIT, Labyrinth
 
 # blk stands for block
 # the height of each of the blocks is supposed to be the same as their width
@@ -28,30 +30,30 @@ X_BLK_END = X_BLK_START + BLK_SIZE
 Y_BLK_END = Y_BLK_START + BLK_SIZE
 
 
-def draw_labyrinth() -> None:
+def draw_labyrinth(labyrinth: Labyrinth, X_BLK_MARGIN: Optional[int] = X_BLK_START) -> None:
     """
     Graphic design for the labyrinth walls, cells, start and exit block
     draws the whole labyrinth...
     :return: None
     """
     # blocks are being drawn in rows, not columns
-    for i in range(len(Const.LABYRINTH)):
-        for j in range(len(Const.LABYRINTH[0])):
+    for i in range(len(labyrinth)):
+        for j in range(len(labyrinth[0])):
 
             # X_COORDS is X coordinate of left side of the particular block
             # Y_COORDS is Y coordinate of top side of the particular block
-            X_COORDS = X_BLK_START + (BLK_SIZE * j)
+            X_COORDS = X_BLK_MARGIN + (BLK_SIZE * j)
             Y_COORDS = Y_BLK_START + (BLK_SIZE * i)
 
-            if Const.LABYRINTH[i][j] == WALL:
+            if labyrinth[i][j] == WALL:
                 image_wall = pygame.image.load(
-                    "PicturesFolder/walls/walls48/" + str(Const.LABYRINTH.adjacent_walls[i][j] + ".png"))
+                    "PicturesFolder/walls/walls48/" + str(labyrinth.adjacent_walls[i][j] + ".png"))
                 Const.DISPLAY_SURFACE.blit(image_wall, (X_COORDS, Y_COORDS))
-            if Const.LABYRINTH[i][j] == FLOOR:
+            if labyrinth[i][j] == FLOOR:
                 Const.DISPLAY_SURFACE.blit(image_floor, (X_COORDS, Y_COORDS))
-            if Const.LABYRINTH[i][j] == START:
+            if labyrinth[i][j] == START:
                 Const.DISPLAY_SURFACE.blit(image_door, (X_COORDS, Y_COORDS))
-            if Const.LABYRINTH[i][j] == EXIT:
+            if labyrinth[i][j] == EXIT:
                 Const.DISPLAY_SURFACE.blit(image_end, (X_COORDS, Y_COORDS))
             pygame.display.update()
 

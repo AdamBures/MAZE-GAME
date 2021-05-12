@@ -25,6 +25,7 @@ WINDOW_WIDTH = 640
 WINDOW_HEIGHT = 480
 DISPLAY_SURFACE = pygame.display.set_mode((WINDOW_WIDTH, WINDOW_HEIGHT))
 
+MENU_LABYRINTH = Labyrinth(10, 15)
 LABYRINTH = Labyrinth(10, 10)
 PLAYER = Player(LABYRINTH)
 
@@ -37,7 +38,7 @@ BLUE = (0, 0, 255)
 BLACK = (0, 0, 0)
 GREY = (128, 128, 128)
 
-TITLE_FONT = pygame.font.Font('freesansbold.ttf', 80)
+TITLE_FONT = pygame.font.Font('freesansbold.ttf', 60)
 BTN_FONT = pygame.font.Font('freesansbold.ttf', 40)
 BTN_FONT2 = pygame.font.Font('freesansbold.ttf', 30)
 SCORE_FONT = pygame.font.Font('freesansbold.ttf', 25)
@@ -59,6 +60,7 @@ def restart() -> None:
     Restart the game
     :return: None
     """
-    global LABYRINTH, PLAYER
+    global LABYRINTH, MENU_LABYRINTH, PLAYER
+    MENU_LABYRINTH = Labyrinth(10, 15)
     LABYRINTH = Labyrinth(10, 10)
     PLAYER = Player(LABYRINTH)

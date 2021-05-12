@@ -17,23 +17,23 @@ def terminate_window():
 
 def show_menu():
     global mouse_coordinates
+    Visualisation.draw_labyrinth(Const.MENU_LABYRINTH, 0)
     # Title
-    title_surface = TITLE_FONT.render('Maze Game!', True, WHITE)
+    title_surface = TITLE_FONT.render('A(maze)ing Game!', True, WHITE)
     title_rect = title_surface.get_rect()
     title_rect.center = (WINDOW_WIDTH / 2, WINDOW_HEIGHT / 3)
 
     # Button
-    btn_start = BTN_FONT.render("Start!", True, WHITE)
-    btn_exit = BTN_FONT.render("Exit!", True, WHITE)
+    btn_start = BTN_FONT.render("Start", True, WHITE)
+    btn_exit = BTN_FONT.render("Exit", True, WHITE)
 
     btn_start_rect = btn_start.get_rect()
     btn_exit_rect = btn_exit.get_rect()
 
-    btn_start_rect.center = (WINDOW_WIDTH / 2, WINDOW_HEIGHT / 2)
-    btn_exit_rect.center = (WINDOW_WIDTH / 2, 2 * WINDOW_HEIGHT / 3)
+    btn_start_rect.center = (WINDOW_WIDTH / 2, WINDOW_HEIGHT * 1.15 / 2)
+    btn_exit_rect.center = (WINDOW_WIDTH / 2, 2 * WINDOW_HEIGHT * 1.15 / 3)
 
     # draw window
-    Const.DISPLAY_SURFACE.fill(BG_COLOR)
     Const.DISPLAY_SURFACE.blit(title_surface, title_rect)
     Const.DISPLAY_SURFACE.blit(btn_start, btn_start_rect)
     Const.DISPLAY_SURFACE.blit(btn_exit, btn_exit_rect)
@@ -57,6 +57,7 @@ def show_menu():
         if mouse_clicked:
             if btn_start_rect.collidepoint(mouse_coordinates[0], mouse_coordinates[1]):
                 flag = False
+                Const.restart()
             elif btn_exit_rect.collidepoint(mouse_coordinates[0], mouse_coordinates[1]):
                 terminate_window()
 
@@ -68,7 +69,7 @@ def show_menu():
 def run_game():
     global mouse_coordinates
     Const.DISPLAY_SURFACE.fill(BG_COLOR)
-    Visualisation.draw_labyrinth()
+    Visualisation.draw_labyrinth(Const.LABYRINTH)
     Visualisation.player_pos_change()
     Visualisation.current_position_vis()
     btn_menu_rect = Visualisation.draw_menu_btn()
