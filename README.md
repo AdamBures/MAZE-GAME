@@ -188,12 +188,13 @@ Displays the labyrinth to user
 ```python
 import pygame
 import Const
+from Typing import Optional
 from Const import WHITE, WINDOW_HEIGHT, image_end, image_door, image_floor, \
     image_player, BTN_FONT2, SCORE_FONT, NUMBER, BLACK, GREY, image_player_left
 from Labyrinth import WALL, FLOOR, START, EXIT
 
 
-def draw_labyrinth() -> None:
+def draw_labyrinth(labyrinth: Labyrinth, X_BLK_MARGIN: Optional[int] = X_BLK_START) -> None:
     # Draws background (labyrinth) to window surface
     ...
 
