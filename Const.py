@@ -57,6 +57,7 @@ image_player_left = pygame.transform.flip(image_player, True, False)
 
 SECRET_IMAGE = pygame.image.load(r"PicturesFolder\secret image.jpg")
 
+
 def restart() -> None:
     """
     Restart the game
