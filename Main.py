@@ -124,44 +124,47 @@ def run_game():
         pygame.display.update()
         FPS_CLOCK.tick(FPS)
 
-
-def end_screen():
-    # Rendering the finished text, continue text and secret image
+def end_screen(final_time):
+    #Rendering the finished text, continue text and secret image 
     end_surface = END_FONT.render("YOU FINISHED 5 LEVELS", True, WHITE)
+    final_time_surface = TIME_FONT.render("You finished in: {} seconds.".format(final_time), True, WHITE)
     continue_surface = END_FONT.render("Press enter to continue...", True, WHITE)
     secret_image = pygame.image.load(r"PicturesFolder\secret image.jpg")
-
-    # Creates rectangles of all 3 mentioned surfaces
+    
+    #Creates rectangles of all 3 mentioned surfaces
     end_rect = end_surface.get_rect()
-    secret_rect = secret_image.get_rect()
     continue_rect = continue_surface.get_rect()
+    final_time_rect = final_time_surface.get_rect()
+    secret_rect = secret_image.get_rect()
 
-    # Centering these 3 rectangles
-    end_rect.center = (WINDOW_WIDTH / 2, WINDOW_HEIGHT / 5)
-    secret_rect.center = (WINDOW_WIDTH / 2, WINDOW_HEIGHT / 2)
-    continue_rect.center = (WINDOW_WIDTH / 2, WINDOW_HEIGHT / 1.25)
-
-    # Gameloop
+    #Centering these 3 rectangles
+    end_rect.center = (WINDOW_WIDTH / 2, WINDOW_HEIGHT / 15)
+    continue_rect.center = (WINDOW_WIDTH / 2, WINDOW_HEIGHT / 1.1)
+    secret_rect.center =  (WINDOW_WIDTH / 2, WINDOW_HEIGHT / 2.5)
+    final_time_rect.center = (WINDOW_WIDTH / 2, WINDOW_HEIGHT / 1.3)
+    
+    #Gameloop
     flag = True
     while flag:
-        # Filling and blitting the variables
+        #Filling and bliting the variables
         Const.DISPLAY_SURFACE.fill(BLACK)
         Const.DISPLAY_SURFACE.blit(end_surface, end_rect)
         Const.DISPLAY_SURFACE.blit(secret_image, secret_rect)
         Const.DISPLAY_SURFACE.blit(continue_surface, continue_rect)
-        # Event loop
+        Const.DISPLAY_SURFACE.blit(final_time_surface, final_time_rect)
+
+        #Event loop
         for event in pygame.event.get():
-            # Terminating the window
+            #Terminating the window
             if event.type == QUIT or (event.type == KEYUP and event.key == K_ESCAPE):
                 terminate_window()
-            # Showing the menu
+            #Showing the menu
             if event.type == KEYUP and event.key == K_RETURN:
                 show_menu()
                 break
-        # Updating the display and setting FPS
+        #Updating the display and setting FPS
         pygame.display.update()
         FPS_CLOCK.tick(FPS)
-
 
 def main():
     while True:
