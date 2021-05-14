@@ -1,6 +1,6 @@
 import pygame
 from pygame.locals import *
-
+import time
 import Const
 import Visualisation
 from Const import TITLE_FONT, WHITE, WINDOW_WIDTH, WINDOW_HEIGHT, BTN_FONT, BG_COLOR, FPS, FPS_CLOCK, MAZE_NUMBER, \
@@ -167,6 +167,7 @@ def end_screen(final_time):
         FPS_CLOCK.tick(FPS)
 
 def main():
+    start = time.perf_counter()
     while True:
         show_menu()
         maze_counter = 0
@@ -175,9 +176,9 @@ def main():
             maze_counter += 1
             Const.restart()
             if maze_counter == MAZE_NUMBER:
-                end_screen()
-                continue
-
+                end = time.perf_counter()
+                final_time = str(round(end-start,2))
+                end_screen(final_time)
 
 if __name__ == '__main__':
     main()
