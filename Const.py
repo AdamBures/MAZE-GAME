@@ -43,6 +43,7 @@ BTN_FONT = pygame.font.Font('freesansbold.ttf', 40)
 BTN_FONT2 = pygame.font.Font('freesansbold.ttf', 30)
 SCORE_FONT = pygame.font.Font('freesansbold.ttf', 25)
 END_FONT = pygame.font.Font('freesansbold.ttf', 35)
+TIME_FONT = pygame.font.Font('freesansbold.ttf', 30)
 
 NUMBER = 0
 FPS = 30
