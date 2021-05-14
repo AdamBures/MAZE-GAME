@@ -4,7 +4,7 @@ import time
 import Const
 import Visualisation
 from Const import TITLE_FONT, WHITE, WINDOW_WIDTH, WINDOW_HEIGHT, BTN_FONT, BG_COLOR, FPS, FPS_CLOCK, MAZE_NUMBER, \
-    BLACK, END_FONT
+    BLACK, END_FONT, TIME_FONT
 
 pygame.init()
 
