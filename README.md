@@ -216,3 +216,23 @@ def player_pos_change() -> None:
     # I have no idea what this function does
     ...
 ```
+### `Completed tasks`:
+Basic Maze<br>
+Constants in one file<br>
+Working Main File<br>
+Start screen and move between the game and the menu<br>
+Moving player<br>
+Better graphics<br>
+Animation of player move<br>
+End screen<br>
+More levels<br>
+Level generator<br>
+Fog and showing the map through progress<br>
+Timer<br>
+Some secret :)<br>
+
+### `Plans for future`:
+Better hint system<br>
+Add score/gold/items<br>
+Secrets in levels<br>
+Story mode<br>
