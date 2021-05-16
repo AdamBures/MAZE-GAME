@@ -79,7 +79,7 @@ def run_game():
     # main loop
     flag = True
     while flag:
-        Visualisation.draw_score()
+        Visualisation.draw_score(maze_counter)
         mouse_clicked = False
 
         for event in pygame.event.get():
@@ -167,6 +167,7 @@ def end_screen(final_time):
         FPS_CLOCK.tick(FPS)
 
 def main():
+    global maze_counter
     start = time.perf_counter()
     while True:
         show_menu()
