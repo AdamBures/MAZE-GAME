@@ -71,7 +71,7 @@ def draw_menu_btn() -> pygame.Rect:
     return btn_menu_rect
 
 
-def draw_score() -> None:
+def draw_score(map_number) -> None:
     """
     Draw score and number
     :return: None
@@ -80,11 +80,10 @@ def draw_score() -> None:
     score_rect = score_menu.get_rect()
     score_rect.center = (40, (WINDOW_HEIGHT / 2) + 50)
     Const.DISPLAY_SURFACE.blit(score_menu, score_rect)
-    number_menu = SCORE_FONT.render(f"{NUMBER}", True, WHITE)
+    number_menu = SCORE_FONT.render(f"{map_number}", True, WHITE)
     number_rect = number_menu.get_rect()
     number_rect.center = (40, (WINDOW_HEIGHT / 2) + 80)
     Const.DISPLAY_SURFACE.blit(number_menu, number_rect)
-
 
 def current_position_vis() -> None:
     """
